@@ -1,28 +1,48 @@
-import React from "react";
-import { Link } from "react-router-dom";
+/* eslint-disable react/prop-types */
 import { Button, Select, Spinner } from "flowbite-react";
-const Contact = () => {
+import { useForm, ValidationError } from "@formspree/react";
+import { toast } from "react-toastify";
+import { useEffect } from "react";
+import { Link } from "react-router-dom";
+
+export default function Contact({ setProgress }) {
+  const [state, handleSubmit] = useForm("");
+
+  useEffect(() => {
+    setProgress(Math.floor(Math.random() * 31 + 10));
+    switch (setProgress) {
+      case window.onload:
+        return setProgress(100);
+      default:
+        return setProgress(100);
+    }
+  }, []);
+
+  useEffect(() => {
+    const mailConfirmation = () => {
+      if (state.succeeded) {
+        return toast.success("Your message has been send.");
+      }
+    };
+    mailConfirmation();
+  });
+
   return (
-    <div>
+    <section>
       <div className="google-map | min-w-full h-auto overflow-x-hidden">
         <iframe
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2708.760814648595!2d72.86588947407607!3d18.728295841353866!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be87845e2dbca71%3A0xdf7454cdf08fcb3!2sJay%20Prabha%20Holiday%20Home!5e0!3m2!1sen!2sin!4v1707142063726!5m2!1sen!2sin"
-          width="600"
-          height="450"
-          allowfullscreen=""
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade"
           className="h-[300px] sm:h-[370px] w-full"
           allowFullScreen
+          loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"
-          title=".."
+          frameBorder="0"
         ></iframe>
         <div className="my-8 mx-auto flex flex-col-reverse gap-5 md:gap-0 items-start md:flex-row">
           <div className="contact-form-container | box-border w-full md:w-7/12 px-5 sm:px-14 md:px-5 lg:px-10 3xl:px-20">
             {/* <Fade left duration={1800}> */}
             <div className="contact-form | p-5 shadow border border-neutral-100">
-              <form>
-                {/* onSubmit={handleSubmit} */}
+              <form onSubmit={handleSubmit}>
                 <div className="greet-feedback | mb-7 text-neutral-600">
                   <p>How can we help?</p>
                   <p>
@@ -47,11 +67,11 @@ const Contact = () => {
                     Name
                   </label>
                 </div>
-                {/* <ValidationError
-                    prefix="Name"
-                    field="name"
-                    errors={state.errors}
-                  /> */}
+                <ValidationError
+                  prefix="Name"
+                  field="name"
+                  errors={state.errors}
+                />
 
                 <div className="relative z-0 w-full mb-7 group">
                   <input
@@ -69,11 +89,11 @@ const Contact = () => {
                     Email address
                   </label>
                 </div>
-                {/* <ValidationError
-                    prefix="Email"
-                    field="email"
-                    errors={state.errors}
-                  /> */}
+                <ValidationError
+                  prefix="Email"
+                  field="email"
+                  errors={state.errors}
+                />
 
                 <div className="relative z-0 w-full mb-7 group">
                   <input
@@ -94,11 +114,11 @@ const Contact = () => {
                   </label>
                 </div>
 
-                {/* <ValidationError
-                    prefix="Mobile-Number"
-                    field="mobile-number"
-                    errors={state.errors}
-                  /> */}
+                <ValidationError
+                  prefix="Mobile-Number"
+                  field="mobile-number"
+                  errors={state.errors}
+                />
 
                 <div className="w-full mb-7 group">
                   <label
@@ -116,39 +136,71 @@ const Contact = () => {
                   ></textarea>
                 </div>
 
-                {/* <ValidationError
-                    prefix="Message"
-                    field="message"
-                    errors={state.errors}
-                  /> */}
+                <ValidationError
+                  prefix="Message"
+                  field="message"
+                  errors={state.errors}
+                />
 
-                {/* <Button
+                <div className="w-full mb-7 group">
+                  <label
+                    htmlFor="service"
+                    className="block mb-2 text-sm font-medium text-gray-500 dark:text-white"
+                  >
+                    Select Service
+                  </label>
+                  <Select id="service" name="service">
+                    <option
+                      value="No service requested"
+                      defaultValue
+                      className="hidden"
+                    ></option>
+                    <option value={"Real Estate"}>Real Estate</option>
+                    <option value={"Events Spaces"}>Events Spaces</option>
+                    <option value={"Art-Gallery"}>Art-Gallery</option>
+                    <option value={"Sample Flats"}>Sample Flats</option>
+                    <option value={"Showrooms and Experience Centers"}>
+                      Showrooms and Experience Centers
+                    </option>
+                    <option value={"Resale Homes"}>Resale Homes</option>
+                    <option value={"Hospiatls & Clinic's"}>
+                      Hospiatls & Clinic&#39;s
+                    </option>
+                    <option value={"Hotes,Resorts,Villa"}>
+                      Hotes,Resorts,Villa
+                    </option>
+                  </Select>
+
+                  <ValidationError
+                    prefix="Service"
+                    field="service"
+                    errors={state.errors}
+                  />
+                </div>
+
+                <Button
                   type="submit"
-                  // disabled={state.submitting}
+                  disabled={state.submitting}
                   gradientDuoTone="purpleToBlue"
-                  className="mx-auto w-28 rounded-3xl px-4 bg-black"
+                  className="mx-auto w-28 rounded-3xl px-4"
                 >
                   {state.submitting ? (
-                  <>
-                    <Spinner aria-label="Spinner button example" />
-                    <span className="inline-block ms-2">Sending...</span>
-                  </>
+                    <>
+                      <Spinner aria-label="Spinner button example" />
+                      <span className="inline-block ms-2">Sending...</span>
+                    </>
                   ) : (
-                  <>
-                    <span className="me-2">Send</span>
-                    <i className="bi bi-send-fill"></i>
-                  </>
+                    <>
+                      <span className="me-2">Send</span>
+                      <i className="bi bi-send-fill"></i>
+                    </>
                   )}
-                </Button> */}
-                <button
-                  type="button"
-                  class="text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
-                >
-                  Submit
-                </button>
+                </Button>
               </form>
             </div>
+            {/* </Fade> */}
           </div>
+
           <div className="contact-details-container | box-border w-full md:w-5/12 px-5 sm:px-14 md:px-5 lg:px-10 3xl:px-20">
             {/* <Fade right duration={1800}> */}
             <div className="contact-details | shadow bg-black text-slate-100">
@@ -166,7 +218,7 @@ const Contact = () => {
                         Address:
                       </div>
                       <div className="contact-content font-medium">
-                        At post Kihim, near Bhileshwar Lake, Alibag,
+                        At post Kihim, near Bhilleshwar temple, Alibag,
                         Maharashtra-402208.
                       </div>
                     </div>
@@ -201,7 +253,7 @@ const Contact = () => {
                       </div>
                       <div className="contact-content font-medium hover:opacity-75 transition-opacity">
                         <Link to="mailto:imaginex3dstudio@gmail.com ">
-                          jay17mhatre@gmail.com
+                          jayprabha@gmail.com
                         </Link>
                       </div>
                     </div>
@@ -211,11 +263,8 @@ const Contact = () => {
             </div>
             {/* </Fade> */}
           </div>
-          {/* </Fade> */}
         </div>
       </div>
-    </div>
+    </section>
   );
-};
-
-export default Contact;
+}

@@ -7,7 +7,7 @@ app.use(express.json());
 app.use(cors());
 
 mongoose.connect(
-  "mongodb+srv://Jay:Vwf0H3hX08oSdpme@cottageapp.ryo10by.mongodb.net/Customer"
+  "mongodb+srv://admin:7.R9b.M!-@sWHWn@customer.zkghuje.mongodb.net/Customer"
 );
 
 app.post("/login", (req, res) => {

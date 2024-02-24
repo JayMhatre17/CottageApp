@@ -43,7 +43,7 @@ const HomePage = () => {
 
   return (
     <div>
-      <div className="relative w-full overflow-hidden">
+      <div className="relative w-full overflow-hidden h-screen ">
         <button
           onClick={prevSlide}
           className="absolute top-1/2 transform -translate-y-1/2 left-0 bg-black bg-opacity-50 text-white text-xl px-4 py-2 rounded-l focus:outline-none z-10"
@@ -69,7 +69,7 @@ const HomePage = () => {
               <img
                 src={imageObj.image}
                 alt={`Slide ${imageObj.index}`}
-                className="w-full h-full object-cover transition-opacity duration-500 ease-in-out"
+                className="w-full h-screen object-cover transition-opacity duration-500 ease-in-out"
               />
             </div>
           ))}

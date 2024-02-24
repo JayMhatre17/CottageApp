@@ -10,6 +10,10 @@ const images = [
   "../images/image4.jpg",
   "../images/image5.jpg",
   "../images/gview.jpg",
+  "../images/table.jpg",
+  "../images/side.jpg",
+  "../images/unside.jpg",
+  "../images/swing.jpg",
 ];
 
 const Gallery = () => {
@@ -65,6 +69,7 @@ const Gallery = () => {
               <img
                 key={i}
                 src={image}
+                className="rounded-md"
                 style={{ width: "100%", display: "block", cursor: "pointer" }}
                 alt=""
                 onClick={() => viewImage(image, i)}
