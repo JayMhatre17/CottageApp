@@ -200,7 +200,7 @@ const Contact = () => {
                         Mail:
                       </div>
                       <div className="contact-content font-medium hover:opacity-75 transition-opacity">
-                        <Link to="mailto:imaginex3dstudio@gmail.com ">
+                        <Link to="mailto:jay17mhatre@gmail.com">
                           jay17mhatre@gmail.com
                         </Link>
                       </div>

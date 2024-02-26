@@ -62,7 +62,10 @@ const Gallery = () => {
           </button>
         </div>
       )}
-      <div className="p-5">
+      <div>
+        <div className="p-5">
+          <p>Images :</p>
+        </div>
         <ResponsiveMasonry columnsCountBreakPoints={{ 350: 1, 750: 2, 900: 3 }}>
           <Masonry gutter="15px">
             {images.map((image, i) => (

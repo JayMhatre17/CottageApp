@@ -6,9 +6,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-mongoose.connect(
-  "mongodb+srv://admin:7.R9b.M!-@sWHWn@customer.zkghuje.mongodb.net/Customer"
-);
+mongoose.connect("mongodb://localhost:27017");
 
 app.post("/login", (req, res) => {
   const { email, password } = req.body;

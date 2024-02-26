@@ -73,13 +73,6 @@ const Navbar = () => {
               </Link>
 
               <Link
-                to="/about"
-                className="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-gray-200 mr-4"
-                onClick={closeMenu}
-              >
-                About Us
-              </Link>
-              <Link
                 to="/Booking"
                 className="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-gray-200 mr-4"
                 onClick={closeMenu}

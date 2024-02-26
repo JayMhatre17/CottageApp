@@ -9,7 +9,6 @@ import BookingForm from "./components/Pages/BookingForm.jsx";
 import Location from "./components/Pages/Contact.jsx";
 import Gallery from "./components/Pages/Gallery.jsx";
 import Footer from "./components/Pages/Footer.jsx";
-import About from "./components/Pages/About.jsx";
 
 function App() {
   return (
@@ -20,7 +19,7 @@ function App() {
         <Route path="/booking" element={<BookingForm />} />
         <Route path="/contact-us" element={<Location />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/about" element={<About />} />
+
         <Route path="/images" element={<Gallery />} />
         <Route path="/register" element={<Register />} />
         <Route path="/api/host/dashboard" element={<Dashboard />} />
