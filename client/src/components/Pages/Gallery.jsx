@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 
 const images = [
@@ -18,6 +18,7 @@ const images = [
 
 const Gallery = () => {
   const [data, setData] = useState({ image: "", i: 0 });
+  const [img, setImg] = useState("");
   const viewImage = (image, i) => {
     setData({ image: image, i: i });
   };
@@ -33,6 +34,21 @@ const Gallery = () => {
       setData({ image: "", i: 0 });
     }
   };
+  const cloudinaryRef = useRef();
+  const widgetRef = useRef();
+  useEffect(() => {
+    cloudinaryRef.current = window.cloudinary;
+    widgetRef.current = cloudinaryRef.current.createUploadWidget(
+      {
+        cloudName: "do7olmnmx",
+        uploadPreset: "kmjje9hl",
+      },
+      function (error, result) {
+        console.log(result);
+      }
+    );
+  }, [img]);
+  // console.log(img);
   return (
     <>
       {data.image && (
@@ -49,6 +65,7 @@ const Gallery = () => {
           >
             {"<"}
           </button>
+
           <img
             src={data.image}
             className="w-auto max-w-full max-h-full px-5"
@@ -62,9 +79,15 @@ const Gallery = () => {
           </button>
         </div>
       )}
-      <div>
+      <div className="p-5">
         <div className="p-5">
-          <p>Images :</p>
+          Images :
+          <button
+            className="absolute border-solid border-2 border-sky-400 rounded-lg bg-sky-400 top-20 right-4"
+            onClick={() => widgetRef.current.open()}
+          >
+            Upload Image
+          </button>
         </div>
         <ResponsiveMasonry columnsCountBreakPoints={{ 350: 1, 750: 2, 900: 3 }}>
           <Masonry gutter="15px">

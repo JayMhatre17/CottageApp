@@ -7,17 +7,7 @@ import { Link } from "react-router-dom";
 import { Fade } from "react-reveal";
 
 export default function Contact({ setProgress }) {
-  const [state, handleSubmit] = useForm("myForm");
-
-  useEffect(() => {
-    setProgress(Math.floor(Math.random() * 31 + 10));
-    switch (setProgress) {
-      case window.onload:
-        return setProgress(100);
-      default:
-        return setProgress(100);
-    }
-  }, []);
+  const [state, handleSubmit] = useForm("xvoerqzr");
 
   useEffect(() => {
     const mailConfirmation = () => {

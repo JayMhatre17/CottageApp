@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Button, Select, Spinner } from "flowbite-react";
+// import { Button, Select, Spinner } from "flowbite-react";
 const Contact = () => {
   return (
     <div>

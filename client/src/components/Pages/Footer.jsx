@@ -3,17 +3,17 @@ import React from "react";
 const Footer = () => {
   return (
     <div>
-      <footer class="bg-gray-900 text-white p-8 bottom-0">
-        <div class="container mx-auto flex flex-wrap justify-between">
-          <div class="flex-shrink-0 w-full sm:w-1/2 md:w-1/4 lg:w-1/5">
-            <h3 class="text-lg font-bold mb-2">Contact Us</h3>
+      <footer className="bg-gray-900 text-white p-8 bottom-0">
+        <div className="container mx-auto flex flex-wrap justify-between mt-3">
+          <div className="flex-shrink-0 w-full sm:w-1/2 md:w-1/4 lg:w-1/5">
+            <h3 className="text-lg font-bold mb-2">Contact Us</h3>
             <p>Email: jayprabha@gmail.com</p>
             <p>Phone: +91 9270326629</p>
             <p>Near Bhileshwar lake, Kihim, Alibag 402208</p>
           </div>
 
-          <div class="flex-shrink-0 w-full sm:w-1/2 md:w-1/4 lg:w-1/5 mt-4 sm:mt-0">
-            <h3 class="text-lg font-bold mb-2">Quick Links</h3>
+          <div className="flex-shrink-0 w-full sm:w-1/2 md:w-1/4 lg:w-1/5 mt-4 sm:mt-0">
+            <h3 className="text-lg font-bold mb-2">Quick Links</h3>
             <ul>
               <li>
                 <a href="/">Home</a>
@@ -36,8 +36,8 @@ const Footer = () => {
             </ul>
           </div>
 
-          <div class="flex-shrink-0 w-full sm:w-1/2 md:w-1/4 lg:w-1/5 mt-4 sm:mt-0">
-            <h3 class="text-lg font-bold mb-2">Connect with Us</h3>
+          <div className="flex-shrink-0 w-full sm:w-1/2 md:w-1/4 lg:w-1/5 mt-4 sm:mt-0">
+            <h3 className="text-lg font-bold mb-2">Connect with Us</h3>
             <ul>
               <li className=" items-center">
                 <a
@@ -48,7 +48,7 @@ const Footer = () => {
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    class="h-5 w-5"
+                    className="h-5 w-5"
                     fill="#4267B2"
                     viewBox="0 0 24 24"
                   >
@@ -66,7 +66,7 @@ const Footer = () => {
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    class="h-5 w-5"
+                    className="h-5 w-5"
                     fill="#E1306C"
                     viewBox="0 0 24 24"
                   >
@@ -80,7 +80,7 @@ const Footer = () => {
               <li className="flex items-center">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  class="h-5 w-5"
+                  className="h-5 w-5"
                   fill="#25D366"
                   viewBox="0 0 24 24"
                 >
@@ -95,7 +95,7 @@ const Footer = () => {
           </div>
         </div>
 
-        <div class="mt-8 text-center">
+        <div className="mt-8 text-center">
           <p>&copy; JayPrabha Holiday Home. All rights reserved.</p>
         </div>
       </footer>

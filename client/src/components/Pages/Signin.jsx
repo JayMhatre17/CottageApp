@@ -3,14 +3,14 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const Login = () => {
+const Signin = () => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
+    window.localStorage.setItem("isLogedIn", true);
     axios
       .post("http://localhost:3001/login", { email, password })
       .then((result) => {
@@ -35,8 +35,11 @@ const Login = () => {
             "linear-gradient(#00d5ff,#0095ff,rgba(93,0,255,.555))",
         }}
       >
-        <div className="bg-white p-6 rounded" style={{ width: "40%" }}>
-          <h2 className="mb-3 text-blue-600">
+        <div
+          className="bg-transparent p-6 rounded shadow-md  md:w-3/4"
+          style={{ width: "40%" }}
+        >
+          <h2 className="mb-3 text-white text-xl">
             <b>Login</b>
           </h2>
           <form onSubmit={handleSubmit}>
@@ -106,4 +109,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Signin;

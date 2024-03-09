@@ -1,10 +1,11 @@
 import React from "react";
-import { Carousel, Card } from "flowbite-react";
+import { Carousel } from "flowbite-react";
+import ReviewModal from "../Review/ReviewModal";
 import Menu from "../Menu";
-
+import Review12 from "../Review/Review12";
 const Home = () => {
   return (
-    <div>
+    <div className="bg-grey-200 font-bold">
       <div className="h-56 sm:h-64 xl:h-80 2xl:h-96">
         <Carousel slideInterval={5000}>
           <img src="../images/froont.jpg" alt="..." />
@@ -43,7 +44,7 @@ const Home = () => {
       </div>
       <div>
         <div className="flex text-lg font-bold justify-center">Menu Items</div>
-        <div className="flex flex-wrap ">
+        <div className="flex flex-wrap">
           <Menu
             src="https://media-cdn.tripadvisor.com/media/photo-p/15/81/c5/aa/mutton-super-special.jpg"
             name="Chicken Thali"
@@ -102,32 +103,16 @@ const Home = () => {
           />
         </div>
       </div>
-      <div className="h-36">
-        <div className="flex text-lg font-bold justify-center p-5">Reviews</div>
-
-        <Carousel>
-          <div className="flex h-full items-center justify-center bg-gray-400 dark:bg-gray-700 dark:text-white">
-            <Card
-              className="max-w-sm"
-              imgSrc="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkVmVmWfVJi7OJAa_QH25SmK-nG54D9ExShXogFCQVGQjrvlEh"
-              horizontal
-            >
-              <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                RDJ
-              </h5>
-              <p className="font-normal text-gray-700 dark:text-gray-400">
-                Here are the biggest enterprise technology acquisitions of 2021
-                so far, in reverse chronological order.
-              </p>
-            </Card>
+      <div>
+        <div className="flex text-3xl font-bold left-10 p-5 place-content-between px-10">
+          <div>Reviews</div>
+          <div>
+            <ReviewModal />
           </div>
-          <div className="flex h-full items-center justify-center bg-gray-400 dark:bg-gray-700 dark:text-white">
-            Slide 2
-          </div>
-          <div className="flex h-full items-center justify-center bg-gray-400 dark:bg-gray-700 dark:text-white">
-            Slide 3
-          </div>
-        </Carousel>
+        </div>
+        <div>
+          <Review12 />
+        </div>
       </div>
     </div>
   );

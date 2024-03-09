@@ -36,8 +36,11 @@ const Register = () => {
             "linear-gradient(#00d5ff,#0095ff,rgba(93,0,255,.555))",
         }}
       >
-        <div className="bg-white p-6 rounded" style={{ width: "40%" }}>
-          <h2 className="mb-3 text-center">
+        <div
+          className="bg-transparent p-6 rounded shadow"
+          style={{ width: "40%" }}
+        >
+          <h2 className="mb-3 text-white stext-center text-2xl">
             <b>Register</b>
           </h2>
           <form onSubmit={handleSubmit}>
