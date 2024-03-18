@@ -13,12 +13,14 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Review11 from "./components/Review/Review12.jsx";
 import Packages from "./components/Pages/Packages.jsx";
+import UpdateBooking from "./components/Updates/UpdateBooking.jsx";
+import BookingDetails from "./components/Updates/BookingDetails.jsx";
 // import ImageGallery from "../src/imageGallery/ImageGallery.jsx";
-import { Slide } from "react-reveal";
+
 function App() {
   return (
     <BrowserRouter>
-      <ToastContainer transition={Slide} closeOnClick={false} />
+      <ToastContainer closeOnClick={false} />
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
@@ -28,8 +30,10 @@ function App() {
         <Route path="/rev" element={<Review11 />} />
         <Route path="/images" element={<Gallery />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/api/host/dashboard" element={<Dashboard />} />
+        <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/package" element={<Packages />} />
+        <Route path="/booking/:id" component={<BookingDetails />} />
+        <Route path="/booking/:id/update" component={<UpdateBooking />} />
       </Routes>
       <Footer />
     </BrowserRouter>

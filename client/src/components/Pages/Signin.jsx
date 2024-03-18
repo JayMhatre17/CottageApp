@@ -10,7 +10,7 @@ const Signin = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    window.localStorage.setItem("isLogedIn", true);
+    localStorage.setItem("isLogedIn", true);
     axios
       .post("http://localhost:3001/login", { email, password })
       .then((result) => {

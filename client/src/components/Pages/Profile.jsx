@@ -12,8 +12,8 @@ const Profile = () => {
     }
   });
   const Logout = () => {
-    navigate("/");
-    window.localStorage.removeItem("isLogedIn");
+    localStorage.removeItem("isLogedIn");
+    localStorage.removeItem("user");
   };
   return (
     <div>

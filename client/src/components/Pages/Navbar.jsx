@@ -1,11 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import Profile from "./Profile";
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+
+  // useEffect(() => {
+  //   const signin = () => {
+  //     window.localStorage.getItem("isLogedIn");
+  //   };
+  //   signin();
+  // });
   const signin = () => {
-    window.localStorage.getItem("isLogedIn");
-    Navigate("/");
+    localStorage.getItem("isLogedIn");
   };
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -24,7 +30,7 @@ const Navbar = () => {
               <Link to="/" className="flex items-center ">
                 <img
                   className="w-18 h-12"
-                  src="../images/logo.png"
+                  src="../../../public/images/logo.png"
                   alt="Logo"
                 />
               </Link>

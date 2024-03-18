@@ -1,76 +1,89 @@
-import { useEffect, useState } from "react";
-import { decodeToken } from "react-jwt";
-import { useNavigate } from "react-router-dom";
-// import "./Dashboard.css";
-
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { Label } from "flowbite-react";
+import { Link } from "react-router-dom";
+import BarChart from "../Chart/BarrChart.jsx";
 const Dashboard = () => {
-  const [quote, setQuote] = useState("");
-  const [tempQuote, setTempQuote] = useState("");
-  const navigate = useNavigate();
-
-  const populateDashboard = async () => {
-    const req = await fetch("http://localhost:3000/api/dashboard", {
-      headers: { "x-access-token": localStorage.getItem("token") },
-    });
-    const data = await req.json();
-    if (data.quote) {
-      setQuote(data.quote);
-    }
-  };
-
+  const [users, setUsers] = useState([]);
+  const [booking, setBooking] = useState([]);
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      const userinfo = decodeToken(token);
-      if (userinfo) {
-        populateDashboard();
-      } else {
-        localStorage.removeItem("token");
-        navigate("/login");
-      }
-    }
-  });
-
-  const updateQuote = async (e) => {
-    e.preventDefault();
-    const req = await fetch("http://localhost:4700/api/dashboard", {
-      method: "POST",
-      headers: {
-        "x-access-token": localStorage.getItem("token"),
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        tempQuote,
-      }),
-    });
-    const data = await req.json();
-    if (data.status === "ok") {
-      if (tempQuote) {
-        setQuote(tempQuote);
-      } else {
-        setQuote(quote);
-      }
-      setTempQuote("");
-    } else {
-      alert("Not the good token");
-    }
-  };
-
+    axios
+      .get("http://localhost:3001/dash")
+      .then((users) => setUsers(users.data))
+      .catch((err) => console.log(err));
+    axios
+      .get("http://localhost:3001/book")
+      .then((booking) => setBooking(booking.data))
+      .catch((err) => console.log(err));
+  }, []);
   return (
-    <div>
-      <div className="hero">
-        <h1>Your Quote: </h1>
-        <h2>{quote || "No quote"}</h2>
-      </div>
-      <div className="input">
-        <form onSubmit={updateQuote}>
-          <input
-            placeholder="Add quote"
-            value={tempQuote}
-            onChange={(e) => setTempQuote(e.target.value)}
-          />
-          <input type="submit" id="but" />
-        </form>
+    <div className=" p-2 m-2 ">
+      {/* <div>
+        <BarChart />
+      </div> */}
+
+      <Label value="Login User Info: "></Label>
+      <table className="table-fixed w-1/2 text-center">
+        <thead className="bg-sky-200">
+          <tr>
+            <th className="border-gray-700 border-2">Name</th>
+            <th className="border-gray-700 border-2">Email</th>
+          </tr>
+        </thead>
+        <tbody className="border-gray-700 border-2 ">
+          {users.map((user) => {
+            return (
+              <tr>
+                <td className="border-gray-700 border-2">{user.name}</td>
+                <td className="border-gray-700 border-2">{user.email}</td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+      <div>
+        <div className="flex pl-6 pt-5 pr-2 top-10 justify-between">
+          <Label value="Booking Info: "></Label>
+          <Link to={"/booking"} className="border-2 rounded-lg bg-sky-300">
+            +Add Booking
+          </Link>
+        </div>
+        <table className="table-fixed text-center">
+          <thead className="bg-sky-200">
+            <tr>
+              <th className="border-gray-700 border-2">Name</th>
+              <th className="border-gray-700 border-2">Email</th>
+              <th className="border-gray-700 border-2">Phone No.</th>
+              <th className="border-gray-700 border-2">Arrival Date</th>
+              <th className="border-gray-700 border-2">Depature Date</th>
+              <th className="border-gray-700 border-2">No. of Adult</th>
+              <th className="border-gray-700 border-2">No. of Children</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody className="border-gray-700 border-2 ">
+            {booking.map((user) => {
+              return (
+                <tr>
+                  <td className="border-gray-700 border-2">
+                    {user.fname} {user.lname}
+                  </td>
+                  <td className="border-gray-700 border-2">{user.email}</td>
+                  <td className="border-gray-700 border-2">{user.phone}</td>
+                  <td className="border-gray-700 border-2">{user.arrtime}</td>
+                  <td className="border-gray-700 border-2">{user.deptime}</td>
+                  <td className="border-gray-700 border-2">{user.noa}</td>
+                  <td className="border-gray-700 border-2">{user.noc}</td>
+                  <td>
+                    <Link to={`/bookings/${user._id}`}>
+                      <button>Update</button>
+                    </Link>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
       </div>
     </div>
   );
