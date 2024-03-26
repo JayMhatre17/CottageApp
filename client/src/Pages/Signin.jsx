@@ -1,65 +1,47 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Button, Label, TextInput } from 'flowbite-react';
+import axios from 'axios';
+import { useContext, useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
+import { Store } from '../Store';
+import { Link, useNavigate } from 'react-router-dom';
+import { getError } from '../utils';
 
-const Register = () => {
-  const [name, setName] = useState();
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
+const Signin = () => {
   const navigate = useNavigate();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const { state, dispatch: ctxDispatch } = useContext(Store);
+  const { userInfo } = state;
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
-    axios
-      .post("http://localhost:3001/register", { name, email, password })
-      .then((result) => {
-        console.log(result);
-        if (result.data === "Already registered") {
-          alert("E-mail already registered! Please Login to proceed.");
-          navigate("/login");
-        } else {
-          alert("Registered successfully! Please Login to proceed.");
-          navigate("/login");
-        }
-      })
-      .catch((err) => console.log(err));
+  const onSubmitHandler = async (e) => {
+    e.preventDefault();
+    try {
+      const { data } = await axios.post('/api/users/signin', {
+        email,
+        password,
+      });
+      ctxDispatch({ type: 'USER_SIGNIN', payload: data });
+      localStorage.setItem('userInfo', JSON.stringify(data));
+    } catch (error) {
+      toast.error(getError(error));
+    }
   };
-
+  useEffect(() => {
+    if (userInfo) {
+      navigate('/');
+    }
+  }, [userInfo, navigate]);
   return (
     <div>
-      <div
-        className="h-screen flex justify-center items-center text-center vh-100"
-        style={{
-          backgroundImage:
-            "linear-gradient(#00d5ff,#0095ff,rgba(93,0,255,.555))",
-        }}
-      >
+      <div className="h-screen flex justify-center items-center text-center vh-100">
         <div
-          className="bg-transparent p-6 rounded shadow"
-          style={{ width: "40%" }}
+          className="p-6 rounded shadow-md  md:w-3/4 bg-[linear-gradient(#00d5ff,#0095ff,rgba(93,0,255,.555))]"
+          style={{ width: '40%' }}
         >
-          <h2 className="mb-3 text-white stext-center text-2xl">
-            <b>Register</b>
+          <h2 className="mb-3 text-white text-xl">
+            <b>Login</b>
           </h2>
-          <form onSubmit={handleSubmit}>
-            <div className="mb-3 text-left">
-              <label
-                htmlFor="exampleInputEmail1"
-                className="block text-sm font-medium text-gray-700"
-              >
-                <strong>Name</strong>
-              </label>
-              <input
-                type="text"
-                placeholder="Enter Name"
-                className="mt-1 p-2 border rounded-md w-full"
-                id="exampleInputname"
-                onChange={(event) => setName(event.target.value)}
-                required
-              />
-            </div>
+          <form onSubmit={onSubmitHandler}>
             <div className="mb-3 text-left">
               <label
                 htmlFor="exampleInputEmail1"
@@ -96,10 +78,10 @@ const Register = () => {
               type="submit"
               className="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600"
             >
-              Register
+              Login
             </button>
           </form>
-
+          {/* TO add ' appostopee */}
           <div className="bottom-0 right-0 p-2 my-2 flex items-center space-x-2 bg-gray-800 text-white">
             <svg
               className="w-6 h-6 text-blue-500"
@@ -115,9 +97,9 @@ const Register = () => {
                 d="M12 9v2m0 4h.01M16.293 3.293a1 1 0 0 1 1.414 0l4 4a1 1 0 0 1 0 1.414l-8 8a1 1 0 0 1-1.414 0l-4-4a1 1 0 0 1 0-1.414l8-8z"
               ></path>
             </svg>
-            <p className="text-sm">Already have an account?</p>
-            <Link to="/login" className="text-blue-500 underline">
-              Login
+            <p className="text-sm">Don't have an account?</p>
+            <Link to="/signup" className="text-blue-500 underline">
+              Sign-Up
             </Link>
           </div>
         </div>
@@ -126,4 +108,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default Signin;

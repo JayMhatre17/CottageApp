@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import {
   Button,
   Label,
@@ -8,34 +8,30 @@ import {
   Datepicker,
   FloatingLabel,
   Select,
-} from "flowbite-react";
-// import { Dropdown } from "flowbite-react";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { HiMail } from "react-icons/hi";
-import { FaPhoneAlt } from "react-icons/fa";
-// import { useForm, ValidationError } from "@formspree/react";
-import { useNavigate } from "react-router-dom";
+} from 'flowbite-react';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { HiMail } from 'react-icons/hi';
+import { FaPhoneAlt } from 'react-icons/fa';
 
 const BookingForm = () => {
-  const [fname, setFname] = useState("");
-  const [lname, setLname] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [room, setRoom] = useState("");
-  const [noa, setNoa] = useState("");
-  const [noc, setNoc] = useState("");
+  const [fname, setFname] = useState('');
+  const [lname, setLname] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [room, setRoom] = useState('');
+  const [noa, setNoa] = useState('');
+  const [noc, setNoc] = useState('');
   const [arrtime, setArrTime] = useState(new Date());
   const [deptime, setDepTime] = useState(new Date());
-  const [specialReq, setSpecialReq] = useState("");
-  const Navigate = useNavigate();
+  const [specialReq, setSpecialReq] = useState('');
   useEffect(() => {
     console.log(deptime);
     console.log(arrtime);
     console.log(room);
   });
   const notify = () => {
-    toast.success("Your Room has been Booked.");
+    toast.success('Your Room has been Booked.');
   };
 
   const handleSubmit = async (event) => {
@@ -43,20 +39,20 @@ const BookingForm = () => {
 
     // Send a POST request to Formspree with the form data
     const formData = new FormData();
-    formData.append("First name", fname);
-    formData.append("Last name", lname);
-    formData.append("email", email);
-    formData.append("Phone Number", phone);
-    formData.append("Room type", room);
-    formData.append("Number of adults", noa);
-    formData.append("Number of children", noc);
-    formData.append("Arrival time", arrtime);
-    formData.append("Depature time", deptime);
-    formData.append("message", specialReq);
-    await axios.post("https://formspree.io/f/mgegzzez", formData);
-    toast("Your Room has been Booked.");
+    formData.append('First name', fname);
+    formData.append('Last name', lname);
+    formData.append('email', email);
+    formData.append('Phone Number', phone);
+    formData.append('Room type', room);
+    formData.append('Number of adults', noa);
+    formData.append('Number of children', noc);
+    formData.append('Arrival time', arrtime);
+    formData.append('Depature time', deptime);
+    formData.append('message', specialReq);
+    await axios.post('https://formspree.io/f/mgegzzez', formData);
+    toast('Your Room has been Booked.');
     // Optionally, you can also send the same data to your own backend using Axios
-    await axios.post("http://localhost:3001/booking", {
+    await axios.post('http://localhost:3001/booking', {
       fname,
       lname,
       email,

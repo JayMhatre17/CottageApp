@@ -1,8 +1,8 @@
-import React from "react";
-import { Carousel } from "flowbite-react";
-import ReviewModal from "../Review/ReviewModal";
-import Menu from "../Menu";
-import Review12 from "../Review/Review12";
+import React from 'react';
+import { Carousel } from 'flowbite-react';
+import ReviewModal from '../components/Review/ReviewModal';
+import Menu from '../components/Menu';
+import Review12 from '../components/Review/Review12';
 const Home = () => {
   return (
     <div className="bg-grey-200 font-bold">
@@ -27,14 +27,14 @@ const Home = () => {
               Welcome to JayPrabha <br></br>Holiday Home
             </p>
             <p className="text-justify mt-5 pt-5 h-32 w-70">
-              <p>Enjoy delicious food, cozy rooms, and modern amenities.</p>{" "}
+              <p>Enjoy delicious food, cozy rooms, and modern amenities.</p>{' '}
               <p>
                 Relax and unwind in our serene surroundings, with activities
                 like Beach sports,seeing forts like Kulaba fort which is near to
                 our location.
               </p>
               <p>
-                {" "}
+                {' '}
                 Let us make your stay unforgettable with warm hospitality and
                 beautiful views of Kihim.
               </p>
@@ -50,11 +50,11 @@ const Home = () => {
             name="Chicken Thali"
             price="350"
             features={[
-              "Chicken Gravy",
-              "Chicken Sukha",
-              "Chapati/Bhakri",
-              "Rice",
-              "Sol kadi",
+              'Chicken Gravy',
+              'Chicken Sukha',
+              'Chapati/Bhakri',
+              'Rice',
+              'Sol kadi',
             ]}
           />
           <Menu
@@ -62,11 +62,11 @@ const Home = () => {
             name="Fish Thali"
             price="400"
             features={[
-              "Surmai Fry ",
-              "Prawns Curry",
-              "Chapati/Bhakri",
-              "Rice",
-              "Sol kadi",
+              'Surmai Fry ',
+              'Prawns Curry',
+              'Chapati/Bhakri',
+              'Rice',
+              'Sol kadi',
             ]}
           />
           <Menu
@@ -74,31 +74,31 @@ const Home = () => {
             name="Mutton Thali"
             price="450"
             features={[
-              "Mutton Gravy",
-              "Mutton Sukha",
-              "Chapati/Bhakri",
-              "Rice",
-              "Sol kadi",
+              'Mutton Gravy',
+              'Mutton Sukha',
+              'Chapati/Bhakri',
+              'Rice',
+              'Sol kadi',
             ]}
           />
           <Menu
             src="https://cdn.dotpe.in/longtail/item_thumbnails/8033331/yghSFG2s.webp"
             name="Egg Thali"
             price="300"
-            features={["Egg Curry", "Omlete", "Chapati/Bhakri", "Rice"]}
+            features={['Egg Curry', 'Omlete', 'Chapati/Bhakri', 'Rice']}
           />
           <Menu
             src="https://img.cdnx.in/276483/1671114555118_SKU-0004_0.png?width=600"
             name="Veg Thali"
             price="200"
             features={[
-              "2 Bhaji",
-              "Dal Curry",
-              "Chapati/Bhakri",
-              "Rice",
-              "Sol kadi",
-              "Sweet",
-              "Papad",
+              '2 Bhaji',
+              'Dal Curry',
+              'Chapati/Bhakri',
+              'Rice',
+              'Sol kadi',
+              'Sweet',
+              'Papad',
             ]}
           />
         </div>

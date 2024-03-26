@@ -1,5 +1,6 @@
 {
   "name": "client",
+  "proxy": "http://localhost:5000",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -7,6 +8,8 @@
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "@headlessui/react": "^1.7.14",
+    "@heroicons/react": "^2.0.18",
     "axios": "^1.6.7",
     "better-react-carousel": "^1.1.2",
     "chart.js": "^4.4.2",

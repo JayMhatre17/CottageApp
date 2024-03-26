@@ -1,37 +1,36 @@
-import React, { useEffect, useRef, useState } from "react";
-import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
+import React, { useEffect, useRef, useState } from 'react';
+import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 
 const images = [
-  "../images/front2.jpg",
-  "../images/froont.jpg",
-  "../images/image1.jpg",
-  "../images/image2.jpg",
-  "../images/image3.jpg",
-  "../images/image4.jpg",
-  "../images/image5.jpg",
-  "../images/gview.jpg",
-  "../images/table.jpg",
-  "../images/side.jpg",
-  "../images/unside.jpg",
-  "../images/swing.jpg",
+  '../images/front2.jpg',
+  '../images/froont.jpg',
+  '../images/image1.jpg',
+  '../images/image2.jpg',
+  '../images/image3.jpg',
+  '../images/image4.jpg',
+  '../images/image5.jpg',
+  '../images/gview.jpg',
+  '../images/table.jpg',
+  '../images/side.jpg',
+  '../images/unside.jpg',
+  '../images/swing.jpg',
 ];
 
 const Gallery = () => {
-  const [data, setData] = useState({ image: "", i: 0 });
-  const [img, setImg] = useState("");
+  const [data, setData] = useState({ image: '', i: 0 });
   const viewImage = (image, i) => {
     setData({ image: image, i: i });
   };
   const imageAction = (action) => {
     let i = data.i;
-    if (action === "next") {
+    if (action === 'next') {
       setData({ image: images[i + 1], i: i + 1 });
     }
-    if (action === "prev") {
+    if (action === 'prev') {
       setData({ image: images[i - 1], i: i - 1 });
     }
     if (!action) {
-      setData({ image: "", i: 0 });
+      setData({ image: '', i: 0 });
     }
   };
   const cloudinaryRef = useRef();
@@ -40,14 +39,14 @@ const Gallery = () => {
     cloudinaryRef.current = window.cloudinary;
     widgetRef.current = cloudinaryRef.current.createUploadWidget(
       {
-        cloudName: "do7olmnmx",
-        uploadPreset: "kmjje9hl",
+        cloudName: 'do7olmnmx',
+        uploadPreset: 'kmjje9hl',
       },
       function (error, result) {
         console.log(result);
       }
     );
-  }, [img]);
+  }, []);
   // console.log(img);
   return (
     <>
@@ -61,9 +60,9 @@ const Gallery = () => {
           </button>
           <button
             className="bg-white sticky justify-center left-0"
-            onClick={() => imageAction("prev")}
+            onClick={() => imageAction('prev')}
           >
-            {"<"}
+            {'<'}
           </button>
 
           <img
@@ -73,9 +72,9 @@ const Gallery = () => {
           />
           <button
             className="bg-white sticky justify-center right-0"
-            onClick={() => imageAction("next")}
+            onClick={() => imageAction('next')}
           >
-            {">"}
+            {'>'}
           </button>
         </div>
       )}
@@ -96,7 +95,7 @@ const Gallery = () => {
                 key={i}
                 src={image}
                 className="rounded-md"
-                style={{ width: "100%", display: "block", cursor: "pointer" }}
+                style={{ width: '100%', display: 'block', cursor: 'pointer' }}
                 alt=""
                 onClick={() => viewImage(image, i)}
               />

@@ -1,17 +1,17 @@
 /* eslint-disable react/prop-types */
-import { Button, Select, Spinner } from "flowbite-react";
-import { useForm, ValidationError } from "@formspree/react";
-import { toast } from "react-toastify";
-import { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Button, Spinner } from 'flowbite-react';
+import { useForm, ValidationError } from '@formspree/react';
+import { toast } from 'react-toastify';
+import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 export default function Contact({ setProgress }) {
-  const [state, handleSubmit] = useForm("xvoerqzr");
+  const [state, handleSubmit] = useForm('xvoerqzr');
 
   useEffect(() => {
     const mailConfirmation = () => {
       if (state.succeeded) {
-        return toast.success("Your message has been send.");
+        return toast.success('Your message has been send.');
       }
     };
     mailConfirmation();
@@ -21,6 +21,7 @@ export default function Contact({ setProgress }) {
     <section>
       <div className="google-map | min-w-full h-auto overflow-x-hidden">
         <iframe
+          title="g-map"
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2708.760814648595!2d72.86588947407607!3d18.728295841353866!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be87845e2dbca71%3A0xdf7454cdf08fcb3!2sJay%20Prabha%20Holiday%20Home!5e0!3m2!1sen!2sin!4v1707142063726!5m2!1sen!2sin"
           className="h-[300px] sm:h-[370px] w-full"
           allowFullScreen
