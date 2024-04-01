@@ -1,13 +1,16 @@
-import { Button, Label, TextInput } from 'flowbite-react';
 import axios from 'axios';
 import { useContext, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { Store } from '../Store';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { getError } from '../utils';
 
 const Signin = () => {
   const navigate = useNavigate();
+  const { search } = useLocation();
+  const redirectInUrl = new URLSearchParams(search).get('redirect');
+  const redirect = redirectInUrl ? redirectInUrl : '/';
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const { state, dispatch: ctxDispatch } = useContext(Store);
@@ -26,11 +29,12 @@ const Signin = () => {
       toast.error(getError(error));
     }
   };
+
   useEffect(() => {
     if (userInfo) {
-      navigate('/');
+      navigate(redirect);
     }
-  }, [userInfo, navigate]);
+  }, [navigate, redirect, userInfo]);
   return (
     <div>
       <div className="h-screen flex justify-center items-center text-center vh-100">
@@ -44,23 +48,25 @@ const Signin = () => {
           <form onSubmit={onSubmitHandler}>
             <div className="mb-3 text-left">
               <label
-                htmlFor="exampleInputEmail1"
+                htmlFor="email"
                 className="block text-sm font-medium text-gray-700"
               >
-                <strong>Email Id</strong>
+                <strong>Email-Id</strong>
               </label>
               <input
+                id="email"
                 type="email"
                 placeholder="Enter Email"
                 className="mt-1 p-2 border rounded-md w-full"
-                id="exampleInputEmail1"
+                name="email"
                 onChange={(event) => setEmail(event.target.value)}
                 required
+                autoComplete="email"
               />
             </div>
             <div className="mb-3 text-left">
               <label
-                htmlFor="exampleInputPassword1"
+                htmlFor="password"
                 className="block text-sm font-medium text-gray-700"
               >
                 <strong>Password</strong>
@@ -69,7 +75,8 @@ const Signin = () => {
                 type="password"
                 placeholder="Enter Password"
                 className="mt-1 p-2 border rounded-md w-full"
-                id="exampleInputPassword1"
+                id="password"
+                name="password"
                 onChange={(event) => setPassword(event.target.value)}
                 required
               />
@@ -91,9 +98,9 @@ const Signin = () => {
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
                 d="M12 9v2m0 4h.01M16.293 3.293a1 1 0 0 1 1.414 0l4 4a1 1 0 0 1 0 1.414l-8 8a1 1 0 0 1-1.414 0l-4-4a1 1 0 0 1 0-1.414l8-8z"
               ></path>
             </svg>

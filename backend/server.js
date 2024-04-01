@@ -2,16 +2,16 @@ import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
-import expressAsyncHandler from 'express-async-handler';
 import userRouter from './Routes/UserRoutes.js';
+import bookingRouter from './Routes/BookingRoutes.js';
 
 const app = express();
 
 dotenv.config();
+mongoose.set('strictQuery', true);
+
 mongoose
-  .connect(
-    'mongodb+srv://cottageuser:soham2002@cluster0.uhf4yom.mongodb.net/?retryWrites=true&w=majority'
-  )
+  .connect(process.env.MONGODB_URI)
   .then(() => {
     console.log('connected to db');
   })
@@ -23,7 +23,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/api/users', userRouter);
-// app.use('/seed', seedRouter);
+app.use('/api/booking', bookingRouter);
 
 app.get('/', (req, res) => res.send('server is active!'));
 

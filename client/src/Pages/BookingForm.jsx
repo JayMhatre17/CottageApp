@@ -1,138 +1,212 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState, useContext, useReducer, useEffect } from 'react';
+import Axios from 'axios';
 import {
-  Button,
   Label,
   TextInput,
   Textarea,
   Datepicker,
   FloatingLabel,
-  Select,
+  Radio,
+  Button,
+  Spinner,
 } from 'flowbite-react';
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { HiMail } from 'react-icons/hi';
 import { FaPhoneAlt } from 'react-icons/fa';
+import { Store } from '../Store';
+import { getError } from '../utils';
+import { useNavigate } from 'react-router-dom';
 
+const reducer = (state, action) => {
+  switch (action.type) {
+    case 'BOOKING_REQUEST':
+      return { ...state, loading: true };
+    case 'BOOKING_SUCCESS':
+      return { ...state, loading: false };
+    case 'BOOKING_FAILED':
+      return { ...state, loading: false };
+    default:
+      return state;
+  }
+};
 const BookingForm = () => {
-  const [fname, setFname] = useState('');
-  const [lname, setLname] = useState('');
-  const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
-  const [room, setRoom] = useState('');
-  const [noa, setNoa] = useState('');
-  const [noc, setNoc] = useState('');
-  const [arrtime, setArrTime] = useState(new Date());
-  const [deptime, setDepTime] = useState(new Date());
-  const [specialReq, setSpecialReq] = useState('');
+  const navigate = useNavigate();
+  const { state } = useContext(Store);
+  const { userInfo } = state;
+
   useEffect(() => {
-    console.log(deptime);
-    console.log(arrtime);
-    console.log(room);
+    if (!userInfo) {
+      navigate('/login?redirect=/booking');
+    }
+  }, [userInfo, navigate]);
+
+  const [{ loading }, dispatch] = useReducer(reducer, {
+    loading: false,
   });
-  const notify = () => {
-    toast.success('Your Room has been Booked.');
+
+  const [firstName, setFirstName] = useState(
+    userInfo ? userInfo.firstName : ''
+  );
+  const [lastName, setLastName] = useState(userInfo ? userInfo.lastName : '');
+  const [email, setEmail] = useState(userInfo ? userInfo.email : '');
+  const [phone, setPhone] = useState('');
+  const [roomType, setRoomType] = useState('');
+  const [numberOfAdults, setNumberOfAdults] = useState(null);
+  const [numberOfChildrens, setNumberOfChildrens] = useState(null);
+  const [checkIn, setCheckIn] = useState('');
+  const [checkOut, setCheckOut] = useState('');
+  const [specialRequest, setSpecialRequest] = useState();
+
+  // Number of Guest validation
+  const numberOfAdultsChange = (e) => {
+    const value = e.target.value;
+    if (value > 30) {
+      toast.error('Maximum 30 adults can be selected!');
+      return setNumberOfAdults(30);
+    } else if (value < 0) {
+      toast.error('Minimum 0 adults can be selected!');
+      return setNumberOfAdults(0);
+    } else {
+      return setNumberOfAdults(value);
+    }
   };
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-
-    // Send a POST request to Formspree with the form data
-    const formData = new FormData();
-    formData.append('First name', fname);
-    formData.append('Last name', lname);
-    formData.append('email', email);
-    formData.append('Phone Number', phone);
-    formData.append('Room type', room);
-    formData.append('Number of adults', noa);
-    formData.append('Number of children', noc);
-    formData.append('Arrival time', arrtime);
-    formData.append('Depature time', deptime);
-    formData.append('message', specialReq);
-    await axios.post('https://formspree.io/f/mgegzzez', formData);
-    toast('Your Room has been Booked.');
-    // Optionally, you can also send the same data to your own backend using Axios
-    await axios.post('http://localhost:3001/booking', {
-      fname,
-      lname,
-      email,
-      phone,
-      room,
-      noa,
-      noc,
-      arrtime,
-      deptime,
-      specialReq,
-    });
+  const numberOfChilrenChange = (e) => {
+    const value = e.target.value;
+    if (value > 30) {
+      toast.error('Maximum 30 childrens can be selected!');
+      return setNumberOfChildrens(30);
+    } else if (value < 0) {
+      toast.error('Minimum 0 childrens can be selected!');
+      return setNumberOfChildrens(0);
+    } else {
+      return setNumberOfChildrens(value);
+    }
   };
-  const minDate = new Date();
-  minDate.setDate(minDate.getDate() + 7);
 
-  // Set maximum date to 2 months from today
-  const maxDate = new Date();
-  maxDate.setMonth(maxDate.getMonth() + 2);
+  // Check-In and Check-Out Validation
+  const today = new Date();
+  const oneWeekFromToday = new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000);
+  const twoMonthsFromToday = new Date(
+    today.getFullYear(),
+    today.getMonth() + 2,
+    today.getDate()
+  );
+
+  // Date Formatter
+  function formatDate(date) {
+    const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    const monthNames = [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec',
+    ];
+    const day = date.getDay();
+    const selectedDate = date.getDate();
+    const monthIndex = date.getMonth();
+    const year = date.getFullYear();
+    return `${dayNames[day]} ${selectedDate} ${monthNames[monthIndex]} ${year}`;
+  }
+
+  const checkInDateChange = (date) => {
+    const formatCheckInDate = formatDate(date);
+    setCheckIn(formatCheckInDate);
+  };
+
+  const checkOutDateChange = (date) => {
+    const formatCheckOutDate = formatDate(date);
+    setCheckOut(formatCheckOutDate);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      dispatch({ type: 'BOOKING_REQUEST' });
+      const { data } = await Axios.post(
+        '/api/booking',
+        {
+          firstName,
+          lastName,
+          email,
+          phone,
+          roomType,
+          numberOfAdults,
+          numberOfChildrens,
+          checkIn,
+          checkOut,
+          specialRequest,
+        },
+        {
+          headers: {
+            authorization: `Bearer ${userInfo.token}`,
+          },
+        }
+      );
+      console.log(data);
+      dispatch({ type: 'BOOKING_SUCCESS' });
+      toast.success('Your Room has been Booked.');
+      navigate('/');
+    } catch (err) {
+      dispatch({ type: 'BOOKING_FAILED' });
+      toast.error(getError(err));
+    }
+  };
+
   return (
     <>
-      <ToastContainer />
       <div className="bg-gradient-to-r from-cyan-500 to-blue-500 p-4 font-bold">
-        <form
-          className="max-w-2xl mx-auto border p-4 bg-white rounded shadow-lg "
-          onSubmit={handleSubmit}
-        >
+        <form className="max-w-2xl mx-auto border p-4 bg-white rounded shadow-lg ">
           <div>
             <img src="../images/hotel-banner.png" alt="banner" />
           </div>
-          <div className="flex justify-center p-2 mb-2">
-            <label>
-              <h2>
-                <b>Room Booking Form</b>
-              </h2>
-            </label>
-          </div>
+          <div className="flex justify-center my-4">Room Booking Form</div>
           <div className="grid grid-flow-col justify-stretch space-x-4">
             <FloatingLabel
               variant="filled"
               label="First Name"
-              id="firstname"
-              name="firstname"
-              onChange={(e) => setFname(e.target.value)}
+              id="firstName"
+              name="firstName"
+              value={firstName}
+              className="capitalize"
+              onChange={(e) => setFirstName(e.target.value)}
+              required
             />
-            {/* <ValidationError
-              prefix="FirstName"
-              field="firstname"
-              errors={state.errors}
-            /> */}
             <FloatingLabel
               variant="filled"
               label="Last Name"
-              id="lastname"
-              name="lastname"
-              onChange={(e) => setLname(e.target.value)}
+              id="lastName"
+              name="lastName"
+              className="capitalize"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+              required
             />
-            {/* <ValidationError
-              prefix="LastName"
-              field="lastname"
-              errors={state.errors}
-            /> */}
           </div>
           <div className="mt-4">
             <div className="mb-2 block">
-              <Label htmlFor="email1" value="Your email" />
+              <Label htmlFor="Email" value="Email Address" />
             </div>
             <TextInput
-              id="email"
+              id="Email"
               type="email"
               icon={HiMail}
-              name="email"
-              placeholder="name@gmail.com"
+              name="Email"
+              placeholder="example@mail.com"
+              value={email}
+              autoComplete="email"
               onChange={(e) => setEmail(e.target.value)}
               required
             />
-            {/* <ValidationError
-              prefix="Email"
-              field="email"
-              errors={state.errors}
-            /> */}
           </div>
           <div className="mt-4">
             <div className="mb-2 block">
@@ -141,133 +215,146 @@ const BookingForm = () => {
             <TextInput
               id="phone"
               type="tel"
+              autoComplete="tel"
+              maxLength={10}
               icon={FaPhoneAlt}
               name="phone"
+              value={phone}
               placeholder="Enter your phone number"
               onChange={(e) => setPhone(e.target.value)}
               required
             />
-            {/* <ValidationError
-              prefix="Phone number"
-              field="phone"
-              errors={state.errors}
-            /> */}
           </div>
           <div className="mt-4 text-black bg-white">
-            <Label value="Select Room Type"></Label>
-            <h1>{room}</h1>
-            <Select value={room} onChange={(e) => setRoom(e.target.value)}>
-              <option></option>
-              <option>A/C</option>
-              <option>Non A/C</option>
-            </Select>
-            {/* <Dropdown
-              id="room"
-              label="Room Type"
-              placement="right-start"
-              onChange={(e) => setRoom(e.target.value)}
-              value={room}
-              inline
-            >
-              <Dropdown.Item value="ac">A/C Room</Dropdown.Item>
-              <Dropdown.Item value="non-ac">Non A/C Room</Dropdown.Item>
-            </Dropdown> */}
-            {/* <ValidationError
-              prefix="Room Type"
-              field="room"
-              errors={state.errors}
-            /> */}
+            <fieldset className="flex max-w-md flex-col gap-4">
+              <legend className="mb-4 font-medium">Select Room Type</legend>
+              <div className="flex flex-row gap-2">
+                <div className="flex items-center gap-2">
+                  <Radio
+                    id="AC"
+                    name="roomType"
+                    value="AC"
+                    onChange={(e) => {
+                      setRoomType(e.target.value);
+                    }}
+                    required
+                  />
+                  <Label htmlFor="AC">AC</Label>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Radio
+                    id="NonAC"
+                    name="roomType"
+                    value="Non AC"
+                    required
+                    onChange={(e) => {
+                      setRoomType(e.target.value);
+                    }}
+                  />
+                  <Label htmlFor="NonAC">Non AC</Label>
+                </div>
+              </div>
+            </fieldset>
           </div>
           <div className="mt-4">
-            <Label htmlFor="noOfcustomer" value="Number of Guests" />
+            <div>Number of Guest</div>
             <div className="grid grid-flow-col justify-stretch space-x-4">
               <FloatingLabel
                 variant="filled"
+                type="number"
+                min={0}
+                max={30}
                 label="Adults"
-                id="noa"
-                name="noa"
-                onChange={(e) => setNoa(e.target.value)}
+                id="numberOfAdults"
+                name="numberOfAdults"
+                required
+                value={numberOfAdults}
+                onChange={numberOfAdultsChange}
               />
-              {/* <ValidationError
-                prefix="Number of Adults"
-                field="noa"
-                errors={state.errors}
-              /> */}
               <FloatingLabel
+                type="number"
+                min={0}
+                max={30}
                 variant="filled"
                 label="Childrens"
-                id="noc"
-                name="noc"
-                onChange={(e) => setNoc(e.target.value)}
+                id="numberOfChildrens"
+                name="numberOfChildrens"
+                required
+                value={numberOfChildrens}
+                onChange={numberOfChilrenChange}
               />
-              {/* <ValidationError
-                prefix="Number of Childrens"
-                field="noc"
-                errors={state.errors}
-              /> */}
             </div>
           </div>
           <div className="mt-4">
             <div className="grid grid-flow-col space-x-4">
               <div className="grid grid-flow-row ">
-                <Label htmlFor="Arrivaltime" value="Arrival Time" />
-
+                <Label htmlFor="checkIn" value="Check-In Date" />
                 <Datepicker
-                  id="arrdate"
-                  name="arrdate"
-                  onChange={(e) => setArrTime(e.target)}
-                  value={arrtime}
-                  minDate={minDate}
-                  maxDate={maxDate}
+                  id="checkIn"
+                  name="checkIn"
+                  value={checkIn}
+                  onSelectedDateChanged={checkInDateChange}
+                  minDate={oneWeekFromToday}
+                  maxDate={twoMonthsFromToday}
+                  placeholder="Check-In Date"
                 />
-                {/* <ValidationError
-                  prefix="arrdate"
-                  field="arrdate"
-                  errors={state.errors}
-                /> */}
               </div>
               <div className="grid grid-flow-row ">
-                <Label htmlFor="DepaTime" value="Departure Time" />
+                <Label htmlFor="checkOut" value="Check-Out Date" />
                 <Datepicker
-                  id="depdate"
-                  name="depdate"
-                  onChange={(e) => setDepTime(e.target)}
-                  value={deptime}
-                  minDate={minDate}
-                  maxDate={maxDate}
+                  id="checkOut"
+                  name="checkOut"
+                  onSelectedDateChanged={checkOutDateChange}
+                  value={checkOut}
+                  minDate={oneWeekFromToday}
+                  maxDate={twoMonthsFromToday}
+                  placeholder="Check-Out Date"
                 />
-                {/* <ValidationError
-                  prefix="depdate"
-                  field="depdate"
-                  errors={state.errors}
-                /> */}
               </div>
+            </div>
+
+            <div className="text-sm font-medium mt-1 text-neutral-600">
+              You can book up to two months in advance, starting from one week
+              before your desired date.
             </div>
           </div>
 
-          <div className="mt-4">
-            <Label htmlFor="Request" value="Special Requests" />
+          <div className="mt-2">
+            <Label
+              htmlFor="specialRequest"
+              value="Special Requests (Optional)"
+            />
             <Textarea
-              id="request"
+              id="specialRequest"
+              name="reqspecialRequestuest"
+              className="p-2"
               placeholder="Any special requests?"
               rows={4}
-              name="request"
-              onChange={(e) => setSpecialReq(e.target.value)}
+              value={specialRequest}
+              onChange={(e) => setSpecialRequest(e.target.value)}
             />
-            {/* <ValidationError
-              prefix="Special Request"
-              field="request"
-              errors={state.errors}
-            /> */}
           </div>
           <div className="flex justify-center p-4 mt-4">
             <Button
-              gradientMonochrome="cyan"
+              color="blue"
+              pill
               type="submit"
-              onClick={notify}
-              // disabled={state.submitting}
+              onClick={handleSubmit}
+              disabled={loading}
+              className="px-6"
             >
-              Submit
+              {loading ? (
+                <>
+                  {' '}
+                  <Spinner
+                    aria-label="Alternate spinner button example"
+                    size="sm"
+                  />
+                  <span className="pl-3">Submit...</span>
+                </>
+              ) : (
+                'Submit'
+              )}
             </Button>
           </div>
         </form>

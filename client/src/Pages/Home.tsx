@@ -1,8 +1,6 @@
 import React from 'react';
 import { Carousel } from 'flowbite-react';
-import ReviewModal from '../components/Review/ReviewModal';
 import Menu from '../components/Menu';
-import Review12 from '../components/Review/Review12';
 const Home = () => {
   return (
     <div className="bg-grey-200 font-bold">
@@ -26,7 +24,7 @@ const Home = () => {
             <p className="text-xl font-bold text-center">
               Welcome to JayPrabha <br></br>Holiday Home
             </p>
-            <p className="text-justify mt-5 pt-5 h-32 w-70">
+            <div className="text-justify mt-5 pt-5 h-32 w-70">
               <p>Enjoy delicious food, cozy rooms, and modern amenities.</p>{' '}
               <p>
                 Relax and unwind in our serene surroundings, with activities
@@ -38,7 +36,7 @@ const Home = () => {
                 Let us make your stay unforgettable with warm hospitality and
                 beautiful views of Kihim.
               </p>
-            </p>
+            </div>
           </div>
         </div>
       </div>
@@ -101,17 +99,6 @@ const Home = () => {
               'Papad',
             ]}
           />
-        </div>
-      </div>
-      <div>
-        <div className="flex text-3xl font-bold left-10 p-5 place-content-between px-10">
-          <div>Reviews</div>
-          <div>
-            <ReviewModal />
-          </div>
-        </div>
-        <div>
-          <Review12 />
         </div>
       </div>
     </div>

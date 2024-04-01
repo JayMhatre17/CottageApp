@@ -58,13 +58,15 @@ const Signup = () => {
           <form onSubmit={submitHandler}>
             <div className="mb-3 text-left">
               <label
-                htmlFor="exampleInputEmail1"
+                htmlFor="firstName"
                 className="block text-sm font-medium text-gray-700"
               >
                 <strong>First Name</strong>
               </label>
               <input
                 type="text"
+                id="firstName"
+                name="firstName"
                 placeholder="Enter Here..."
                 className="mt-1 p-2 border rounded-md w-full"
                 onChange={(event) => setFirstName(event.target.value)}
@@ -73,13 +75,15 @@ const Signup = () => {
             </div>
             <div className="mb-3 text-left">
               <label
-                htmlFor="exampleInputEmail1"
+                htmlFor="lastName"
                 className="block text-sm font-medium text-gray-700"
               >
                 <strong>Last Name</strong>
               </label>
               <input
                 type="text"
+                id="lastName"
+                name="lastName"
                 placeholder="Enter Here..."
                 className="mt-1 p-2 border rounded-md w-full"
                 onChange={(event) => setLastName(event.target.value)}
@@ -88,7 +92,7 @@ const Signup = () => {
             </div>
             <div className="mb-3 text-left">
               <label
-                htmlFor="exampleInputEmail1"
+                htmlFor="Email"
                 className="block text-sm font-medium text-gray-700"
               >
                 <strong>Email</strong>
@@ -97,9 +101,11 @@ const Signup = () => {
                 type="email"
                 placeholder="example@mail.com"
                 className="mt-1 p-2 border rounded-md w-full"
-                id="exampleInputEmail1"
+                id="Email"
+                name="Email"
                 onChange={(event) => setEmail(event.target.value)}
                 required
+                autoComplete="email"
               />
             </div>
             <div className="mb-3 text-left">
@@ -111,6 +117,8 @@ const Signup = () => {
               </label>
               <input
                 type="password"
+                id="password"
+                name="password"
                 className="mt-1 p-2 border rounded-md w-full"
                 onChange={(event) => setPassword(event.target.value)}
                 required
@@ -119,13 +127,15 @@ const Signup = () => {
 
             <div className="mb-3 text-left">
               <label
-                htmlFor="confirmPasword"
+                htmlFor="confirmPassword"
                 className="block text-sm font-medium text-gray-700"
               >
                 <strong>Confirm Password</strong>
               </label>
               <input
                 type="password"
+                name="confirmPassword"
+                id="confirmPassword"
                 className="mt-1 p-2 border rounded-md w-full"
                 onChange={(event) => setConfirmPassword(event.target.value)}
                 required
