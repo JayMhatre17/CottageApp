@@ -2,7 +2,6 @@ import express from 'express';
 import Booking from '../models/BookingModel.js';
 import expressAsyncHandler from 'express-async-handler';
 import { isAdmin, isAuth } from '../utils.js';
-import User from '../models/UserModel.js';
 
 const bookingRouter = express.Router();
 

@@ -11,7 +11,9 @@ export default function Contact({ setProgress }) {
   useEffect(() => {
     const mailConfirmation = () => {
       if (state.succeeded) {
-        return toast.success('Your message has been send.');
+        return toast.success('Your message has been send.', {
+          position: 'top-center',
+        });
       }
     };
     mailConfirmation();
@@ -159,9 +161,9 @@ export default function Contact({ setProgress }) {
 
           <div className="contact-details-container | box-border w-full md:w-5/12 px-5 sm:px-14 md:px-5 lg:px-10 3xl:px-20">
             {/* <Fade right duration={1800}> */}
-            <div className="contact-details | shadow bg-black text-slate-100">
-              <div className="contact-legend py-5 px-8 text-center bg-gray-500 text-xl">
-                Contact Details:
+            <div className="contact-details | shadow bg-white text-neutral-600">
+              <div className="contact-legend py-5 px-8 text-center bg-[#7cb0fd] text-xl text-white font-medium">
+                Contact Details
               </div>
               <ul className="contact-list px-5 py-6">
                 <li className="pb-4 border-b border-gray-500 mt-3">
@@ -170,7 +172,7 @@ export default function Contact({ setProgress }) {
                       <i className="bi bi-geo-alt-fill"></i>
                     </div>
                     <div className="contact-info">
-                      <div className="contact label font-semibold pb-2 text-[gold]">
+                      <div className="contact label font-semibold pb-2 text-neutral-700">
                         Address:
                       </div>
                       <div className="contact-content font-medium">
@@ -186,7 +188,7 @@ export default function Contact({ setProgress }) {
                       <i className="bi bi-phone-fill"></i>
                     </div>
                     <div className="contact-info">
-                      <div className="contact label font-semibold pb-2 text-[gold]">
+                      <div className="contact label font-semibold pb-2 text-neutral-700">
                         Phone:
                       </div>
                       <div className="contact-content font-medium hover:opacity-75 transition-opacity mb-2">
@@ -204,7 +206,7 @@ export default function Contact({ setProgress }) {
                       <i className="bi bi-envelope-at-fill"></i>
                     </div>
                     <div className="contact-info">
-                      <div className="contact label font-semibold pb-2 text-[gold]">
+                      <div className="contact label font-semibold pb-2 text-neutral-700">
                         Mail:
                       </div>
                       <div className="contact-content font-medium hover:opacity-75 transition-opacity">

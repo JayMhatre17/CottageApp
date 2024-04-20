@@ -4,6 +4,7 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import userRouter from './Routes/UserRoutes.js';
 import bookingRouter from './Routes/BookingRoutes.js';
+import photosRouter from './Routes/PhotosRoutes.js';
 
 const app = express();
 
@@ -24,6 +25,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/api/users', userRouter);
 app.use('/api/booking', bookingRouter);
+app.use('/api/photos', photosRouter);
 
 app.get('/', (req, res) => res.send('server is active!'));
 

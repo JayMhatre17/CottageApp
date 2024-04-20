@@ -4,7 +4,6 @@ import { Slide, ToastContainer } from 'react-toastify';
 import { Link, NavLink } from 'react-router-dom';
 import { useContext } from 'react';
 import { Store } from '../Store';
-import './styles/index.css';
 import ProfileDropdown from './ProfileDropdown';
 
 export default function Navbar() {
@@ -21,7 +20,7 @@ export default function Navbar() {
       <ToastContainer transition={Slide} />
       <Disclosure
         as="nav"
-        className="bg-[#1f2022] z-50 shadow-lg sticky top-0 rigth-0 w-full border-b border-b-slate-100 select-none"
+        className="bg-[#4f4ffc] z-50 shadow-lg sticky top-0 rigth-0 w-full border-b border-b-slate-100 select-none"
       >
         {({ open }) => (
           <>
@@ -31,8 +30,13 @@ export default function Navbar() {
                   <Link to={'/'}>
                     <div className="flex flex-shrink-0 items-center flex-row">
                       <img
-                        src="./images/logo/lg-logo.jpg"
-                        className="h-[70px] 3xl:h-[95px]"
+                        src="./images/logo/lg-logo.png"
+                        className="w-[250px] sm:block hidden"
+                        alt="logo"
+                      ></img>
+                      <img
+                        src="./images/logo/ss-logo.png"
+                        className="h-[60px] sm:hidden block"
                         alt="logo"
                       ></img>
                     </div>
@@ -57,12 +61,12 @@ export default function Navbar() {
                         </NavLink>
                       </div>
                       <div className="nav-item">
-                        <NavLink to={'/images'} className="header-nav">
-                          Images
+                        <NavLink to={'/photos'} className="header-nav">
+                          Photos
                         </NavLink>
                       </div>
                       <div className="nav-item">
-                        <NavLink to={'/contact-us'} className="header-nav">
+                        <NavLink to={'/contactus'} className="header-nav">
                           Contact us
                         </NavLink>
                       </div>
@@ -92,56 +96,47 @@ export default function Navbar() {
             </div>
 
             <Disclosure.Panel className="md:hidden">
-              <div className="space-y-1 px-2 pb-3 pt-2">
-                <NavLink to="/" className="header-nav">
-                  <Disclosure.Button
-                    className={
-                      'block rounded-md px-3 py-2 text-base font-medium hover:bg-gray-300 hover:text-neutral-800'
-                    }
-                  >
-                    Home
-                  </Disclosure.Button>
+              <div className="flex flex-col items-stretch justify-evenly gap-2 p-3">
+                <NavLink
+                  to="/"
+                  className="header-nav | flex flex-row items-center justify-center py-2 rounded-lg bg-[#8f8fffb9] hover:bg-[#d7d7ff]"
+                >
+                  <Disclosure.Button>Home</Disclosure.Button>
                 </NavLink>
 
-                <NavLink to="/images" className="header-nav">
-                  <Disclosure.Button
-                    className={
-                      'block rounded-md px-3 py-2 text-base font-medium hover:bg-gray-300 hover:text-neutral-800'
-                    }
-                  >
-                    Images
-                  </Disclosure.Button>
+                <NavLink
+                  to="/photos"
+                  className="header-nav | flex flex-row items-center justify-center py-2 rounded-lg bg-[#8f8fffb9] hover:bg-[#d7d7ff]"
+                >
+                  <Disclosure.Button>Photos</Disclosure.Button>
                 </NavLink>
 
-                <NavLink to="/contact-us" className="header-nav">
-                  <Disclosure.Button
-                    className={
-                      'block rounded-md px-3 py-2 text-base font-medium hover:bg-gray-300 hover:text-neutral-800'
-                    }
-                  >
-                    Contact Us
-                  </Disclosure.Button>
+                <NavLink
+                  to="/contactus"
+                  className="header-nav | flex flex-row items-center justify-center py-2 rounded-lg bg-[#8f8fffb9] hover:bg-[#d7d7ff]"
+                >
+                  <Disclosure.Button>Contact Us</Disclosure.Button>
                 </NavLink>
 
-                <NavLink to="/packages" className="header-nav">
-                  <Disclosure.Button
-                    className={
-                      'block rounded-md px-3 py-2 text-base font-medium hover:bg-gray-300 hover:text-neutral-800'
-                    }
-                  >
-                    Packages
-                  </Disclosure.Button>
+                <NavLink
+                  to="/packages"
+                  className="header-nav | flex flex-row items-center justify-center py-2 rounded-lg bg-[#8f8fffb9] hover:bg-[#d7d7ff]"
+                >
+                  <Disclosure.Button>Packages</Disclosure.Button>
                 </NavLink>
 
-                <div className="header-nav">
-                  {userInfo ? (
+                {userInfo ? (
+                  <div className="flex flex-row items-center justify-center py-2 rounded-lg bg-[#8f8fffb9] text-white">
                     <ProfileDropdown userInfo={userInfo} signOut={signOut} />
-                  ) : (
-                    <NavLink to={'/login'} className="header-nav">
-                      Login
-                    </NavLink>
-                  )}
-                </div>
+                  </div>
+                ) : (
+                  <NavLink
+                    to={'/login'}
+                    className="header-nav | flex flex-row items-center justify-center py-2 rounded-lg bg-[#8f8fffb9] hover:bg-[#d7d7ff]"
+                  >
+                    Login
+                  </NavLink>
+                )}
               </div>
             </Disclosure.Panel>
           </>

@@ -62,10 +62,14 @@ const BookingForm = () => {
   const numberOfAdultsChange = (e) => {
     const value = e.target.value;
     if (value > 30) {
-      toast.error('Maximum 30 adults can be selected!');
+      toast.error('Maximum 30 adults can be selected!', {
+        position: 'top-center',
+      });
       return setNumberOfAdults(30);
     } else if (value < 0) {
-      toast.error('Minimum 0 adults can be selected!');
+      toast.error('Minimum 0 adults can be selected!', {
+        position: 'top-center',
+      });
       return setNumberOfAdults(0);
     } else {
       return setNumberOfAdults(value);
@@ -75,10 +79,14 @@ const BookingForm = () => {
   const numberOfChilrenChange = (e) => {
     const value = e.target.value;
     if (value > 30) {
-      toast.error('Maximum 30 childrens can be selected!');
+      toast.error('Maximum 30 childrens can be selected!', {
+        position: 'top-center',
+      });
       return setNumberOfChildrens(30);
     } else if (value < 0) {
-      toast.error('Minimum 0 childrens can be selected!');
+      toast.error('Minimum 0 childrens can be selected!', {
+        position: 'top-center',
+      });
       return setNumberOfChildrens(0);
     } else {
       return setNumberOfChildrens(value);
@@ -132,7 +140,7 @@ const BookingForm = () => {
     e.preventDefault();
     try {
       dispatch({ type: 'BOOKING_REQUEST' });
-      const { data } = await Axios.post(
+      await Axios.post(
         '/api/booking',
         {
           firstName,
@@ -152,24 +160,25 @@ const BookingForm = () => {
           },
         }
       );
-      console.log(data);
       dispatch({ type: 'BOOKING_SUCCESS' });
-      toast.success('Your Room has been Booked.');
+      toast.success('Your Room has been Booked.', { position: 'top-center' });
       navigate('/');
     } catch (err) {
       dispatch({ type: 'BOOKING_FAILED' });
-      toast.error(getError(err));
+      toast.error(getError(err), { position: 'top-center' });
     }
   };
 
   return (
     <>
-      <div className="bg-gradient-to-r from-cyan-500 to-blue-500 p-4 font-bold">
+      <div className="p-4">
         <form className="max-w-2xl mx-auto border p-4 bg-white rounded shadow-lg ">
           <div>
-            <img src="../images/hotel-banner.png" alt="banner" />
+            <img src="../images/booking/formBanner.png" alt="banner" />
           </div>
-          <div className="flex justify-center my-4">Room Booking Form</div>
+          <div className="flex justify-center my-4 font-bold font-serif">
+            Room Booking Form
+          </div>
           <div className="grid grid-flow-col justify-stretch space-x-4">
             <FloatingLabel
               variant="filled"

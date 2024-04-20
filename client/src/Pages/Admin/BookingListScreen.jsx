@@ -1,10 +1,10 @@
 import axios from 'axios';
 import React, { useContext, useEffect, useReducer, useState } from 'react';
 // import { useNavigate } from 'react-router-dom';
-import LoadingBox from '../components/LoadingBox';
-import MessageBox from '../components/MessageBox';
-import { Store } from '../Store';
-import { getError } from '../utils';
+import LoadingBox from '../../components/LoadingBox';
+import MessageBox from '../../components/MessageBox';
+import { Store } from '../../Store';
+import { getError } from '../../utils';
 import { Button, Modal, Spinner, Table } from 'flowbite-react';
 import { PiTrashDuotone } from 'react-icons/pi';
 import { FaTrashCan } from 'react-icons/fa6';
@@ -75,11 +75,13 @@ export default function BookingListScreen() {
       await axios.delete(`/api/booking/${booking._id}`, {
         headers: { Authorization: `Bearer ${userInfo.token}` },
       });
-      toast.success('Booking deleted successfully.');
+      toast.success('Booking deleted successfully.', {
+        position: 'top-center',
+      });
       dispatch({ type: 'DELETE_SUCCESS' });
       setOpenDeleteModal(0);
     } catch (error) {
-      toast.error(getError(error));
+      toast.error(getError(error), { position: 'top-center' });
       dispatch({
         type: 'DELETE_FAIL',
       });

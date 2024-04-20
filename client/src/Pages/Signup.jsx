@@ -24,7 +24,7 @@ const Signup = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
-      toast.error('Password do not match');
+      toast.error('Password do not match', { position: 'top-center' });
       return;
     }
     try {
@@ -38,7 +38,7 @@ const Signup = () => {
       localStorage.setItem('userInfo', JSON.stringify(data));
       navigate(redirect || '/');
     } catch (err) {
-      toast.error(getError(err));
+      toast.error(getError(err), { position: 'top-center' });
     }
   };
 
@@ -50,9 +50,9 @@ const Signup = () => {
 
   return (
     <div>
-      <div className="h-screen flex justify-center items-center text-center vh-100">
+      <div className="flex justify-center items-center my-10">
         <div className="p-6 rounded-2xl shadow bg-[linear-gradient(#00d5ff,#0095ff,rgba(93,0,255,.555))] w-[40%]">
-          <h2 className="mb-3 text-white stext-center text-2xl">
+          <h2 className="mb-3 text-white text-center text-2xl">
             <b>Register</b>
           </h2>
           <form onSubmit={submitHandler}>
@@ -67,7 +67,7 @@ const Signup = () => {
                 type="text"
                 id="firstName"
                 name="firstName"
-                placeholder="Enter Here..."
+                placeholder="firstname..."
                 className="mt-1 p-2 border rounded-md w-full"
                 onChange={(event) => setFirstName(event.target.value)}
                 required
@@ -84,7 +84,7 @@ const Signup = () => {
                 type="text"
                 id="lastName"
                 name="lastName"
-                placeholder="Enter Here..."
+                placeholder="lastname..."
                 className="mt-1 p-2 border rounded-md w-full"
                 onChange={(event) => setLastName(event.target.value)}
                 required
@@ -141,13 +141,14 @@ const Signup = () => {
                 required
               />
             </div>
-
-            <button
-              type="submit"
-              className="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-2 px-6 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600"
-            >
-              Register
-            </button>
+            <div className="flex items-center justify-center">
+              <button
+                type="submit"
+                className="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-2 px-6 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600"
+              >
+                Register
+              </button>
+            </div>
           </form>
 
           <div className="bottom-0 right-0 p-2 my-2 flex items-center space-x-2 bg-gray-800 text-white">
@@ -160,7 +161,10 @@ const Signup = () => {
               <path d="M12 9v2m0 4h.01M16.293 3.293a1 1 0 0 1 1.414 0l4 4a1 1 0 0 1 0 1.414l-8 8a1 1 0 0 1-1.414 0l-4-4a1 1 0 0 1 0-1.414l8-8z"></path>
             </svg>
             <p className="text-sm">Already have an account?</p>
-            <Link to="/login" className="text-blue-500 underline">
+            <Link
+              to={`/signin?redirect=${redirect}`}
+              className="text-blue-500 underline"
+            >
               Login
             </Link>
           </div>

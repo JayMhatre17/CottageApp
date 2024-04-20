@@ -1,20 +1,21 @@
 import React from 'react';
 import { Carousel } from 'flowbite-react';
 import Menu from '../components/Menu';
+
 const Home = () => {
   return (
     <div className="bg-grey-200 font-bold">
       <div className="h-56 sm:h-64 xl:h-80 2xl:h-96">
         <Carousel slideInterval={5000}>
-          <img src="../images/froont.jpg" alt="..." />
-          <img src="../images/image1.jpg" alt="..." />
-          <img src="../images/image3.jpg" alt="..." />
+          <img src="../images/home/carousel/carouselImage1.jpg" alt="Banner" />
+          <img src="../images/home/carousel/carouselImage2.jpg" alt="Banner" />
+          <img src="../images/home/carousel/carouselImage3.jpg" alt="Banner" />
         </Carousel>
       </div>
       <div className="flex flex-row w-full h-screen mb-10px">
         <div className="w-1/2 h-screen p-10 flex justify-center ">
           <img
-            src="../images/front2.jpg"
+            src="../images/home/hero.jpg"
             className="rounded-lg shadow-2xl h-auto"
             alt=".."
           ></img>

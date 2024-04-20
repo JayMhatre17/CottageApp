@@ -16,7 +16,7 @@ const Signin = () => {
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const { userInfo } = state;
 
-  const onSubmitHandler = async (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
     try {
       const { data } = await axios.post('/api/users/signin', {
@@ -25,8 +25,9 @@ const Signin = () => {
       });
       ctxDispatch({ type: 'USER_SIGNIN', payload: data });
       localStorage.setItem('userInfo', JSON.stringify(data));
+      navigate(redirect || '/');
     } catch (error) {
-      toast.error(getError(error));
+      toast.error(getError(error), { position: 'top-center' });
     }
   };
 
@@ -37,26 +38,23 @@ const Signin = () => {
   }, [navigate, redirect, userInfo]);
   return (
     <div>
-      <div className="h-screen flex justify-center items-center text-center vh-100">
+      <div className="flex justify-center items-center my-10">
         <div
           className="p-6 rounded shadow-md  md:w-3/4 bg-[linear-gradient(#00d5ff,#0095ff,rgba(93,0,255,.555))]"
           style={{ width: '40%' }}
         >
-          <h2 className="mb-3 text-white text-xl">
+          <h2 className="mb-3 text-white text-xl text-center">
             <b>Login</b>
           </h2>
-          <form onSubmit={onSubmitHandler}>
+          <form onSubmit={submitHandler}>
             <div className="mb-3 text-left">
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium text-gray-700"
-              >
-                <strong>Email-Id</strong>
+              <label htmlFor="email" className="block font-medium text-[white]">
+                Email
               </label>
               <input
                 id="email"
                 type="email"
-                placeholder="Enter Email"
+                placeholder="example@mail.com"
                 className="mt-1 p-2 border rounded-md w-full"
                 name="email"
                 onChange={(event) => setEmail(event.target.value)}
@@ -67,13 +65,13 @@ const Signin = () => {
             <div className="mb-3 text-left">
               <label
                 htmlFor="password"
-                className="block text-sm font-medium text-gray-700"
+                className="block font-medium text-[white]"
               >
-                <strong>Password</strong>
+                Password
               </label>
               <input
                 type="password"
-                placeholder="Enter Password"
+                placeholder="password..."
                 className="mt-1 p-2 border rounded-md w-full"
                 id="password"
                 name="password"
@@ -81,12 +79,14 @@ const Signin = () => {
                 required
               />
             </div>
-            <button
-              type="submit"
-              className="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600"
-            >
-              Login
-            </button>
+            <div className="flex items-center justify-center">
+              <button
+                type="submit"
+                className="mx-auto text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600"
+              >
+                Login
+              </button>
+            </div>
           </form>
           {/* TO add ' appostopee */}
           <div className="bottom-0 right-0 p-2 my-2 flex items-center space-x-2 bg-gray-800 text-white">
@@ -105,7 +105,10 @@ const Signin = () => {
               ></path>
             </svg>
             <p className="text-sm">Don't have an account?</p>
-            <Link to="/signup" className="text-blue-500 underline">
+            <Link
+              to={`/signup?redirect=${redirect}`}
+              className="text-blue-500 underline"
+            >
               Sign-Up
             </Link>
           </div>
