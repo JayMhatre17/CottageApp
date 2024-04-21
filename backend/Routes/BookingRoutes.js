@@ -2,8 +2,22 @@ import express from 'express';
 import Booking from '../models/BookingModel.js';
 import expressAsyncHandler from 'express-async-handler';
 import { isAdmin, isAuth } from '../utils.js';
+import nodemailer from 'nodemailer';
+import dotenv from 'dotenv';
+import fs from 'fs';
+import Handlebars from 'handlebars';
 
+dotenv.config();
 const bookingRouter = express.Router();
+
+const transporter = nodemailer.createTransport({
+  host: 'smtp.gmail.com',
+  port: 587,
+  auth: {
+    user: process.env.EMAIL,
+    pass: process.env.APP_PASSWORD,
+  },
+});
 
 bookingRouter.post(
   '/',
@@ -22,6 +36,32 @@ bookingRouter.post(
       user: req.user._id,
     });
     const booking = await newBooking.save();
+
+    const emailHTML = fs.readFileSync('././emailFormat.hbs', 'utf8');
+    const compiledTemplate = Handlebars.compile(emailHTML);
+
+    const emailData = {
+      name: `${req.body.firstName + ' ' + req.body.lastName}`,
+      phone: req.body.phone,
+      checkIn: req.body.checkIn,
+      checkOut: req.body.checkOut,
+      numberOfChildrens: req.body.numberOfChildrens,
+      numberOfAdults: req.body.numberOfAdults,
+      specialRequest: req.body.specialRequest,
+    };
+
+    const htmlContent = compiledTemplate(emailData);
+
+    await transporter.sendMail({
+      from: '"Jay Prabha" <jayprabha@gmail.com>', // sender address
+      to: req.body.email, // list of receivers
+      subject: 'Room Booking Confirmation', // Subject line
+      text: `${
+        req.body.firstName + ' ' + req.body.lastName
+      } your room has been booked.`, // plain text body
+      html: htmlContent,
+    });
+
     res.status(201).send({ message: 'Your Room has been Booked.', booking });
   })
 );
