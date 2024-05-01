@@ -1,52 +1,52 @@
-import axios from 'axios';
-import { Button, Label, Modal, Select, Table } from 'flowbite-react';
+import axios from "axios";
+import { Button, Label, Modal, Select, Table } from "flowbite-react";
 import React, {
   useContext,
   useEffect,
   useReducer,
   useRef,
   useState,
-} from 'react';
+} from "react";
 import {
   CLOUDINARY_CLOUD_NAME,
   CLOUDINARY_UPLOAD_PRESET,
   getError,
-} from '../../utils';
-import { toast } from 'react-toastify';
-import { FaTrashCan } from 'react-icons/fa6';
-import LoadingBox from '../../components/LoadingBox';
-import MessageBox from '../../components/MessageBox';
-import { PiTrashDuotone } from 'react-icons/pi';
-import { Store } from '../../Store';
-import { MdCloudUpload } from 'react-icons/md';
+} from "../../utils";
+import { toast } from "react-toastify";
+import { FaTrashCan } from "react-icons/fa6";
+import LoadingBox from "../../components/LoadingBox";
+import MessageBox from "../../components/MessageBox";
+import { PiTrashDuotone } from "react-icons/pi";
+import { Store } from "../../Store";
+import { MdCloudUpload } from "react-icons/md";
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case 'FETCH_REQUEST':
+    case "FETCH_REQUEST":
       return { ...state, loading: true };
-    case 'FETCH_SUCCESS':
+    case "FETCH_SUCCESS":
       return { ...state, images: action.payload, loading: false };
-    case 'FETCH_FAIL':
+    case "FETCH_FAIL":
       return { ...state, error: action.payload, loading: false };
-    case 'UPDATE_REQUEST':
+    case "UPDATE_REQUEST":
       return { ...state, loadingUpdate: true, successUpdate: false };
-    case 'UPDATE_SUCCESS':
+    case "UPDATE_SUCCESS":
       return { ...state, loadingUpdate: false, successUpdate: true };
-    case 'UPDATE_FAILED':
+    case "UPDATE_FAILED":
       return { ...state, loadingUpdate: false, errorUpdate: action.payload };
-    case 'UPDATE_RESET':
+    case "UPDATE_RESET":
       return { ...state, loadingDelete: false, successUpdate: false };
-    case 'DELETE_REQUEST':
+    case "DELETE_REQUEST":
       return { ...state, loadingDelete: true, successDelete: false };
-    case 'DELETE_SUCCESS':
+    case "DELETE_SUCCESS":
       return {
         ...state,
         loadingDelete: false,
         successDelete: true,
       };
-    case 'DELETE_FAIL':
+    case "DELETE_FAIL":
       return { ...state, loadingDelete: false };
-    case 'DELETE_RESET':
+    case "DELETE_RESET":
       return { ...state, loadingDelete: false, successDelete: false };
     default:
       break;
@@ -58,9 +58,9 @@ export default function PhotosListScreen() {
   const { userInfo } = state;
 
   const [openDeleteModal, setOpenDeleteModal] = useState(0);
-  const [imageCategory, setImageCategory] = useState('');
+  const [imageCategory, setImageCategory] = useState("");
   const [openEditModal, setOpenEditModal] = useState(0);
-  const [newImagePath, setNewImagePath] = useState('');
+  const [newImagePath, setNewImagePath] = useState("");
 
   const [
     { images, error, loading, loadingDelete, successDelete, successUpdate },
@@ -74,20 +74,20 @@ export default function PhotosListScreen() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        dispatch({ type: 'FETCH_REQUEST' });
+        dispatch({ type: "FETCH_REQUEST" });
         const { data } = await axios.get(`/api/photos/images`);
-        dispatch({ type: 'FETCH_SUCCESS', payload: data });
+        dispatch({ type: "FETCH_SUCCESS", payload: data });
       } catch (error) {
-        dispatch({ type: 'FETCH_FAILED', payload: getError(error) });
-        toast.error(getError(error), { position: 'top-center' });
+        dispatch({ type: "FETCH_FAILED", payload: getError(error) });
+        toast.error(getError(error), { position: "top-center" });
       }
     };
     if (successDelete || successUpdate) {
       if (successDelete) {
-        dispatch({ type: 'DELETE_RESET' });
+        dispatch({ type: "DELETE_RESET" });
       }
       if (successUpdate) {
-        dispatch({ type: 'UPDATE_RESET' });
+        dispatch({ type: "UPDATE_RESET" });
       }
     } else {
       fetchData();
@@ -97,7 +97,7 @@ export default function PhotosListScreen() {
   const editHandler = async (e, imageID) => {
     e.preventDefault();
     try {
-      dispatch({ type: 'UPDATE_REQUEST' });
+      dispatch({ type: "UPDATE_REQUEST" });
       await axios.put(
         `/api/photos/${imageID}`,
         { path: newImagePath, category: imageCategory },
@@ -105,29 +105,29 @@ export default function PhotosListScreen() {
           headers: { authorization: `Bearer ${userInfo.token}` },
         }
       );
-      dispatch({ type: 'UPDATE_SUCCESS' });
-      toast.success('Image updated successfully.', { position: 'top-center' });
+      dispatch({ type: "UPDATE_SUCCESS" });
+      toast.success("Image updated successfully.", { position: "top-center" });
       setOpenEditModal(false);
-      setNewImagePath('');
+      setNewImagePath("");
     } catch (error) {
-      toast.error(getError(error), { position: 'top-center' });
-      dispatch({ type: 'UPDATE_FAILED', payload: getError(error) });
+      toast.error(getError(error), { position: "top-center" });
+      dispatch({ type: "UPDATE_FAILED", payload: getError(error) });
     }
   };
 
   const deleteHandler = async (image) => {
     try {
-      dispatch({ type: 'DELETE_REQUEST' });
+      dispatch({ type: "DELETE_REQUEST" });
       await axios.delete(`/api/photos/${image._id}`, {
         headers: { authorization: `Bearer ${userInfo.token}` },
       });
-      toast.success('Image deleted successfully.', { position: 'top-center' });
-      dispatch({ type: 'DELETE_SUCCESS' });
+      toast.success("Image deleted successfully.", { position: "top-center" });
+      dispatch({ type: "DELETE_SUCCESS" });
       setOpenDeleteModal(0);
     } catch (error) {
-      toast.error(getError(error), { position: 'top-center' });
+      toast.error(getError(error), { position: "top-center" });
       dispatch({
-        type: 'DELETE_FAIL',
+        type: "DELETE_FAIL",
       });
     }
   };
@@ -143,16 +143,16 @@ export default function PhotosListScreen() {
         mutiple: false,
         showUploadMoreButton: false,
         folder: `JayPrabha-webapp/photos`,
-        clientAllowedFormats: ['image'],
-        sources: ['local', 'url', 'camera', 'google_drive'],
+        clientAllowedFormats: ["image"],
+        sources: ["local", "url", "camera", "google_drive"],
       },
       function (error, result) {
-        if (result.event === 'success') {
+        if (result.event === "success") {
           setNewImagePath(result.info.secure_url);
           console.log(newImagePath);
         }
         if (error) {
-          toast.error(getError(error), { position: 'top-center' });
+          toast.error(getError(error), { position: "top-center" });
         }
       }
     );
@@ -231,7 +231,7 @@ export default function PhotosListScreen() {
                         <div className="text-center">
                           <PiTrashDuotone className="mx-auto mb-4 h-14 w-14 text-gray-400 dark:text-gray-200" />
                           <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-                            Are you sure you want to delete this Image?{' '}
+                            Are you sure you want to delete this Image?{" "}
                             <span className="text-sm">
                               <b>Image ID:</b> {image._id}
                             </span>
@@ -308,7 +308,6 @@ export default function PhotosListScreen() {
                                   }}
                                 >
                                   <option>Gadren</option>
-                                  <option>Dishes</option>
                                   <option>Utilities</option>
                                   <option>Rooms</option>
                                 </Select>

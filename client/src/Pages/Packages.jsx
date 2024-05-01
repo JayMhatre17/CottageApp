@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 const Packages = () => {
   return (
     <div className="text-white font-bold">
-      <div className="text-center text-zinc-700 bg-amber-100 first-line:">
+      <div className="text-center text-lg text-zinc-700 bg-amber-100 first-line: pt-4">
         Packages
       </div>
       <div className=" bg-amber-100 text-neutral-600">
@@ -68,7 +68,7 @@ const Packages = () => {
       </div>
       <Link
         to="/booking"
-        className="text-white border bg-amber-500 m-5 mt-10 p-3 fixed right-0 rounded-full top-10"
+        className="text-white border bg-amber-500 m-10 mt-15 p-3 fixed right-0 rounded-full top-12"
       >
         Book Now
       </Link>

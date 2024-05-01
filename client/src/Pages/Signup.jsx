@@ -1,16 +1,16 @@
-import { useContext, useEffect, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import Axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import { getError } from '../utils';
-import { Store } from '../Store';
+import { useContext, useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import Axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { getError } from "../utils";
+import { Store } from "../Store";
 
 const Signup = () => {
   const navigate = useNavigate();
   const { search } = useLocation();
-  const redirectInUrl = new URLSearchParams(search).get('redirect');
-  const redirect = redirectInUrl ? redirectInUrl : '/';
+  const redirectInUrl = new URLSearchParams(search).get("redirect");
+  const redirect = redirectInUrl ? redirectInUrl : "/";
 
   const [firstName, setFirstName] = useState();
   const [lastName, setLastName] = useState();
@@ -24,21 +24,21 @@ const Signup = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
-      toast.error('Password do not match', { position: 'top-center' });
+      toast.error("Password do not match", { position: "top-center" });
       return;
     }
     try {
-      const { data } = await Axios.post('/api/users/signup', {
+      const { data } = await Axios.post("/api/users/signup", {
         firstName,
         lastName,
         email,
         password,
       });
-      ctxDispatch({ type: 'USER_SIGNIN', payload: data });
-      localStorage.setItem('userInfo', JSON.stringify(data));
-      navigate(redirect || '/');
+      ctxDispatch({ type: "USER_SIGNIN", payload: data });
+      localStorage.setItem("userInfo", JSON.stringify(data));
+      navigate(redirect || "/");
     } catch (err) {
-      toast.error(getError(err), { position: 'top-center' });
+      toast.error(getError(err), { position: "top-center" });
     }
   };
 
@@ -50,8 +50,13 @@ const Signup = () => {
 
   return (
     <div>
-      <div className="flex justify-center items-center my-10">
-        <div className="p-6 rounded-2xl shadow bg-[linear-gradient(#00d5ff,#0095ff,rgba(93,0,255,.555))] w-[40%]">
+      <div className="flex justify-center items-center">
+        <img
+          className="blur relative w-full h-screen"
+          src="./images/2023-03-10.jpg"
+          alt="background"
+        />
+        <div className="p-6 rounded-2xl shadow absolute bg-[linear-gradient(#00d5ff,#0095ff,rgba(93,0,255,.555))] w-[40%]">
           <h2 className="mb-3 text-white text-center text-2xl">
             <b>Register</b>
           </h2>

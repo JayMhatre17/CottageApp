@@ -1,33 +1,33 @@
-import axios from 'axios';
-import { useContext, useEffect, useState } from 'react';
-import { toast } from 'react-toastify';
-import { Store } from '../Store';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { getError } from '../utils';
+import axios from "axios";
+import { useContext, useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import { Store } from "../Store";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { getError } from "../utils";
 
 const Signin = () => {
   const navigate = useNavigate();
   const { search } = useLocation();
-  const redirectInUrl = new URLSearchParams(search).get('redirect');
-  const redirect = redirectInUrl ? redirectInUrl : '/';
+  const redirectInUrl = new URLSearchParams(search).get("redirect");
+  const redirect = redirectInUrl ? redirectInUrl : "/";
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const { userInfo } = state;
 
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.post('/api/users/signin', {
+      const { data } = await axios.post("/api/users/signin", {
         email,
         password,
       });
-      ctxDispatch({ type: 'USER_SIGNIN', payload: data });
-      localStorage.setItem('userInfo', JSON.stringify(data));
-      navigate(redirect || '/');
+      ctxDispatch({ type: "USER_SIGNIN", payload: data });
+      localStorage.setItem("userInfo", JSON.stringify(data));
+      navigate(redirect || "/");
     } catch (error) {
-      toast.error(getError(error), { position: 'top-center' });
+      toast.error(getError(error), { position: "top-center" });
     }
   };
 
@@ -38,10 +38,15 @@ const Signin = () => {
   }, [navigate, redirect, userInfo]);
   return (
     <div>
-      <div className="flex justify-center items-center my-10">
+      <div className="flex justify-center items-center">
+        <img
+          className="blur relative w-full h-screen"
+          src="./images/2023-03-10.jpg"
+          alt="background"
+        />
         <div
-          className="p-6 rounded shadow-md  md:w-3/4 bg-[linear-gradient(#00d5ff,#0095ff,rgba(93,0,255,.555))]"
-          style={{ width: '40%' }}
+          className="p-6 rounded shadow-md absolute md:w-3/4 bg-[linear-gradient(#00d5ff,#0095ff,rgba(93,0,255,.555))]"
+          style={{ width: "40%" }}
         >
           <h2 className="mb-3 text-white text-xl text-center">
             <b>Login</b>

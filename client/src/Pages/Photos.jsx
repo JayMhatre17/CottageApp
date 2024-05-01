@@ -4,54 +4,54 @@ import React, {
   useReducer,
   useRef,
   useState,
-} from 'react';
+} from "react";
 import {
   CLOUDINARY_CLOUD_NAME,
   CLOUDINARY_UPLOAD_PRESET,
   getError,
-} from '../utils';
-import { toast } from 'react-toastify';
-import { Button, Label, Modal, Select } from 'flowbite-react';
-import { FcAddImage, FcNext, FcPrevious } from 'react-icons/fc';
-import { MdClose, MdCloudUpload } from 'react-icons/md';
-import axios from 'axios';
-import { Store } from '../Store';
-import MessageBox from '../components/MessageBox';
-import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
-import { Link, useLocation } from 'react-router-dom';
-import LoadingBox from '../components/LoadingBox';
+} from "../utils";
+import { toast } from "react-toastify";
+import { Button, Label, Modal, Select } from "flowbite-react";
+import { FcAddImage, FcNext, FcPrevious } from "react-icons/fc";
+import { MdClose, MdCloudUpload } from "react-icons/md";
+import axios from "axios";
+import { Store } from "../Store";
+import MessageBox from "../components/MessageBox";
+import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
+import { Link, useLocation } from "react-router-dom";
+import LoadingBox from "../components/LoadingBox";
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case 'FETCH_REQUEST':
+    case "FETCH_REQUEST":
       return { ...state, loading: true };
-    case 'FETCH_SUCCESS':
+    case "FETCH_SUCCESS":
       return { ...state, loading: false, images: action.payload };
-    case 'FETCH_FAIL':
+    case "FETCH_FAIL":
       return { ...state, loading: false, error: action.payload };
-    case 'CREATE_REQUEST':
+    case "CREATE_REQUEST":
       return { ...state, loadingCreate: true, createSuccess: false };
-    case 'CREATE_SUCCESS':
+    case "CREATE_SUCCESS":
       return {
         ...state,
         loadingCreate: false,
         createSuccess: true,
       };
-    case 'CREATE_FAILED':
+    case "CREATE_FAILED":
       return {
         ...state,
         loadingCreate: false,
         errorCreate: action.payload,
       };
-    case 'CREATE_RESET':
+    case "CREATE_RESET":
       return { ...state, loadingCreate: false, createSuccess: false };
-    case 'UPDATE_REQUEST':
+    case "UPDATE_REQUEST":
       return { ...state, loadingUpdate: true, updateSuccess: false };
-    case 'UPDATE_SUCCESS':
+    case "UPDATE_SUCCESS":
       return { ...state, loadingUpdate: false, updateSuccess: true };
-    case 'UPDATE_FAILED':
+    case "UPDATE_FAILED":
       return { ...state, loadingUpdate: false, errorUpdate: action.payload };
-    case 'UPDATE_RESET':
+    case "UPDATE_RESET":
       return { ...state, loadingCreate: false, updateSuccess: false };
     default:
       return state;
@@ -61,11 +61,11 @@ const reducer = (state, action) => {
 const Photos = () => {
   const { search } = useLocation();
   const sp = new URLSearchParams(search);
-  const category = sp.get('category') || 'all';
+  const category = sp.get("category") || "all";
 
-  const [newImagePath, setNewImagePath] = useState('');
+  const [newImagePath, setNewImagePath] = useState("");
   const [newImage, setNewImage] = useState({});
-  const [imageCategory, setImageCategory] = useState('');
+  const [imageCategory, setImageCategory] = useState("");
   const [openEditModal, setOpenEditModal] = useState(null);
   const { state } = useContext(Store);
   const { userInfo } = state;
@@ -84,29 +84,29 @@ const Photos = () => {
   ] = useReducer(reducer, {
     images: [],
     loadingCreate: false,
-    errorCreate: '',
+    errorCreate: "",
     createSuccess: false,
   });
 
   useEffect(() => {
     const fetchData = async () => {
-      dispatch({ type: 'FETCH_REQUEST' });
+      dispatch({ type: "FETCH_REQUEST" });
       try {
         const { data } = await axios.get(
           `/api/photos/search/images?&category=${category}`
         );
-        dispatch({ type: 'FETCH_SUCCESS', payload: data });
+        dispatch({ type: "FETCH_SUCCESS", payload: data });
       } catch (error) {
-        dispatch({ type: 'FETCH_FAILED', payload: getError(error) });
-        toast.error(getError(error), { position: 'top-center' });
+        dispatch({ type: "FETCH_FAILED", payload: getError(error) });
+        toast.error(getError(error), { position: "top-center" });
       }
     };
     if (createSuccess || updateSuccess) {
       if (createSuccess) {
-        dispatch({ type: 'CREATE_RESET' });
+        dispatch({ type: "CREATE_RESET" });
       }
       if (updateSuccess) {
-        dispatch({ type: 'UPDATE_RESET' });
+        dispatch({ type: "UPDATE_RESET" });
       }
     } else {
       fetchData();
@@ -117,10 +117,10 @@ const Photos = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const { data } = await axios.get('/api/photos/search/categories');
+        const { data } = await axios.get("/api/photos/search/categories");
         setCategories(data);
       } catch (error) {
-        toast.error(getError(error), { position: 'top-center' });
+        toast.error(getError(error), { position: "top-center" });
       }
     };
     fetchCategories();
@@ -142,15 +142,15 @@ const Photos = () => {
         mutiple: false,
         showUploadMoreButton: false,
         folder: `JayPrabha-webapp/photos`,
-        clientAllowedFormats: ['image'],
-        sources: ['local', 'url', 'camera', 'google_drive'],
+        clientAllowedFormats: ["image"],
+        sources: ["local", "url", "camera", "google_drive"],
       },
       function (error, result) {
-        if (result.event === 'success') {
+        if (result.event === "success") {
           setNewImagePath(result.info.secure_url);
         }
         if (error) {
-          toast.error(getError(error), { position: 'top-center' });
+          toast.error(getError(error), { position: "top-center" });
         }
       }
     );
@@ -158,30 +158,30 @@ const Photos = () => {
 
   const createHandler = async () => {
     try {
-      dispatch({ type: 'CREATE_REQUEST' });
+      dispatch({ type: "CREATE_REQUEST" });
       const { data } = await axios.post(
-        '/api/photos',
+        "/api/photos",
         {},
         {
           headers: { authorization: `Bearer ${userInfo.token}` },
         }
       );
-      toast.success('New image is Created.', { position: 'top-center' });
-      dispatch({ type: 'CREATE_SUCCESS', payload: data });
+      toast.success("New image is Created.", { position: "top-center" });
+      dispatch({ type: "CREATE_SUCCESS", payload: data });
       setNewImage(data.newImage);
       setNewImagePath(data.newImage.path);
       setImageCategory(data.newImage.category);
       setOpenEditModal(data.newImage._id);
     } catch (error) {
-      dispatch({ type: 'CREATE_FAILED' });
-      toast.error(getError(error), { position: 'top-center' });
+      dispatch({ type: "CREATE_FAILED" });
+      toast.error(getError(error), { position: "top-center" });
     }
   };
 
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
-      dispatch({ type: 'UPDATE_REQUEST' });
+      dispatch({ type: "UPDATE_REQUEST" });
       await axios.put(
         `/api/photos/${newImage._id}`,
         { path: newImagePath, category: imageCategory },
@@ -189,37 +189,37 @@ const Photos = () => {
           headers: { authorization: `Bearer ${userInfo.token}` },
         }
       );
-      dispatch({ type: 'UPDATE_SUCCESS' });
-      toast.success('Image updated successfully.', { position: 'top-center' });
+      dispatch({ type: "UPDATE_SUCCESS" });
+      toast.success("Image updated successfully.", { position: "top-center" });
       setOpenEditModal(false);
-      setNewImagePath('');
+      setNewImagePath("");
     } catch (error) {
-      toast.error(getError(error), { position: 'top-center' });
-      dispatch({ type: 'UPDATE_FAILED', payload: getError(error) });
+      toast.error(getError(error), { position: "top-center" });
+      dispatch({ type: "UPDATE_FAILED", payload: getError(error) });
     }
   };
 
-  const [data, setData] = useState({ img: '', i: 0 });
+  const [data, setData] = useState({ img: "", i: 0 });
   const ViewImage = (img, i) => {
     setData({ img, i });
   };
 
   const imgAction = (action) => {
     let i = data.i;
-    if (action === 'next-img') {
+    if (action === "next-img") {
       setData({
         img: images[i + 1].path,
         i: i + 1,
       });
     }
-    if (action === 'previous-img') {
+    if (action === "previous-img") {
       setData({
         img: images[i - 1].path,
         i: i - 1,
       });
     }
     if (!action) {
-      setData({ img: '', i: 0 });
+      setData({ img: "", i: 0 });
     }
   };
 
@@ -228,12 +228,12 @@ const Photos = () => {
       <div className="admin-actions | my-2 p-2 flex flex-col justify-center items-center">
         {errorCreate ? (
           <MessageBox
-            color={'failure'}
+            color={"failure"}
             text={getError(errorCreate)}
           ></MessageBox>
         ) : (
           <>
-            {' '}
+            {" "}
             {userInfo && userInfo.isAdmin && (
               <Button
                 gradientDuoTone="pinkToOrange"
@@ -295,8 +295,7 @@ const Photos = () => {
                             setImageCategory(e.target.value);
                           }}
                         >
-                          <option>Gadren</option>
-                          <option>Dishes</option>
+                          <option>Garden</option>
                           <option>Utilities</option>
                           <option>Rooms</option>
                         </Select>
@@ -323,29 +322,29 @@ const Photos = () => {
             <ul className="nav-tab | mt-5 list-none flex flex-wrap justify-center items-center">
               <li
                 className={`tab-item | px-5 py-3 font-medium capitalize text-sm text-center rounded-md md:min-h-0 flex items-center ${
-                  'all' === category ? 'text-[#4f4ffc] tab-item-active' : ''
+                  "all" === category ? "text-[#4f4ffc] tab-item-active" : ""
                 }`}
               >
-                <Link to={getFilterUrl({ category: 'all' })}>All Images</Link>
+                <Link to={getFilterUrl({ category: "all" })}>All Images</Link>
               </li>
               {categories.map((c) => (
                 <li
                   key={c}
                   className={`tab-item | px-5 py-3 font-medium capitalize text-sm text-center rounded-md flex items-center  ${
-                    c === category ? 'text-[#4f4ffc] tab-item-active' : ''
+                    c === category ? "text-[#4f4ffc] tab-item-active" : ""
                   }`}
                 >
                   <Link to={getFilterUrl({ category: c })}>{c}</Link>
                 </li>
               ))}
             </ul>
-          </nav>{' '}
+          </nav>{" "}
         </div>
 
         {loading ? (
           <LoadingBox />
         ) : error ? (
-          <MessageBox color={'failure'} text={getError(error)}></MessageBox>
+          <MessageBox color={"failure"} text={getError(error)}></MessageBox>
         ) : (
           <>
             <div className="p-5 w-full">
@@ -358,9 +357,9 @@ const Photos = () => {
                       key={i}
                       src={image.path}
                       style={{
-                        width: '100%',
-                        display: 'block',
-                        cursor: 'pointer',
+                        width: "100%",
+                        display: "block",
+                        cursor: "pointer",
                       }}
                       alt={image.category}
                       onClick={() => {
@@ -377,9 +376,9 @@ const Photos = () => {
               <div className="top-0 w-full h-screen bg-black fixed flex justify-center items-center overflow-hidden z-[70] text-white select-none">
                 <button
                   className={`text-3xl md:me-4 hover:opacity-75 ${
-                    !data.i ? 'hidden' : 'block'
+                    !data.i ? "hidden" : "block"
                   }`}
-                  onClick={() => imgAction('previous-img')}
+                  onClick={() => imgAction("previous-img")}
                   disabled={!data.i}
                 >
                   <FcPrevious />
@@ -391,15 +390,15 @@ const Photos = () => {
                 />
                 <button
                   className={`text-3xl md:ms-4 hover:opacity-75 ${
-                    data.i + 1 === images.length ? 'hidden' : 'block'
+                    data.i + 1 === images.length ? "hidden" : "block"
                   }`}
-                  onClick={() => imgAction('next-img')}
+                  onClick={() => imgAction("next-img")}
                   disabled={data.i + 1 === images.length}
                 >
                   <FcNext />
                 </button>
                 <div className="image-count | absolute z-10 bottom-4 right-3 rounded-full p-1 tracking-wider">
-                  {data.i + 1 + '/' + images.length}
+                  {data.i + 1 + "/" + images.length}
                 </div>
                 <button
                   className="absolute top-3 right-3 text-3xl"
