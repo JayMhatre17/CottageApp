@@ -34,6 +34,7 @@ function App() {
 					<Route path="/login" element={<Signin />} />
 					<Route path="/photos" element={<Photos />} />
 					<Route path="/signup" element={<Signup />} />
+
 					{/* <Route path="/packages" element={<Packages />} /> */}
 					<Route path="/landmark" element={<Landmarks />} />
 					{/* Admin Routes */}

@@ -4,8 +4,11 @@ import Menu from "../components/Menu";
 
 const Home = () => {
 	return (
-		<div className="bg-grey-200 font-bold">
-			<div className="h-48 sm:h-96 top-0 sm:top-6  xl:h-80 2xl:h-96">
+		<div
+			className="font-bold w-full sm:bg-cover bg-blend-darken contrast-100"
+			style={{ backgroundImage: `url("../images/beah.jpg")` }}
+		>
+			<div className="h-48 sm:h-96 top-0 sm:top-6 brightness-150 xl:h-80 2xl:h-96">
 				<Carousel slideInterval={5000}>
 					<img src="../images/home/carousel/carouselImage1.jpg" alt="Banner" />
 					<img src="../images/home/carousel/carouselImage2.jpg" alt="Banner" />
@@ -16,7 +19,7 @@ const Home = () => {
 				<div className="w-full h-full sm:h-screen p-10 flex justify-center sm:w-1/2 ">
 					<img
 						src="../images/home/hero.jpg"
-						className="rounded-lg shadow-2xl h-3/4 hover:shadow-2xl shadow-blue-800/50"
+						className="rounded-lg shadow-blue-600 shadow-xl border-4 border-transparent brightness-125 h-3/4 hover:shadow-2xl drop-shadow-lg "
 						alt=".."
 					></img>
 				</div>
@@ -40,8 +43,8 @@ const Home = () => {
 					</div>
 				</div>
 			</div>
-			<div>
-				<div className="flex text-3xl font-bold mt-20 sm:mt-0 justify-center">
+			<div className="backdrop-blur-sm">
+				<div className="flex text-3xl font-bold mt-32 sm:mt-0 justify-center">
 					Menu Items
 				</div>
 				<div className="flex flex-wrap">

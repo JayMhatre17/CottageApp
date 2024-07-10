@@ -224,7 +224,7 @@ const Photos = () => {
 	};
 
 	return (
-		<>
+		<div className="bg-gradient-to-r from-sky-300 from-30% via-white via-50% to-yellow-100 to-90%">
 			<div className="admin-actions | my-2 p-2 flex flex-col justify-center items-center">
 				{errorCreate ? (
 					<MessageBox
@@ -355,7 +355,7 @@ const Photos = () => {
 									{images.map((image, i) => (
 										<img
 											key={i}
-											className="rounded-lg"
+											className="rounded-lg border-4"
 											src={image.path}
 											style={{
 												width: "100%",
@@ -412,7 +412,7 @@ const Photos = () => {
 					</>
 				)}
 			</div>
-		</>
+		</div>
 	);
 };
 export default Photos;
