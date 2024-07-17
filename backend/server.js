@@ -13,13 +13,13 @@ dotenv.config();
 mongoose.set("strictQuery", true);
 
 mongoose
-  .connect(process.env.MONGODB_URI)
-  .then(() => {
-    console.log("connected to db");
-  })
-  .catch((err) => {
-    console.log(err.message);
-  });
+	.connect(process.env.MONGODB_URI)
+	.then(() => {
+		console.log("connected to db");
+	})
+	.catch((err) => {
+		console.log(err.message);
+	});
 
 app.use(cors());
 app.use(express.json());
@@ -31,7 +31,15 @@ app.use("/api/photos", photosRouter);
 
 app.get("/", (req, res) => res.send("server is active!"));
 
+//for hosting
+const __dirname = path.resolve();
+app.use(express.static(path.join(__dirname, "/client/dist")));
+
+app.get("*", (req, res) => {
+	res.sendFile(path.join(__dirname, "/client/build/index.html"));
+});
+
 const port = 5000;
 app.listen(port, () => {
-  console.log(`Serve at: http://localhost:${port}`);
+	console.log(`Serve at: http://localhost:${port}`);
 });
