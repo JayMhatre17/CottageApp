@@ -20,6 +20,12 @@ const Landmarks = () => {
 						"450m",
 					],
 					[
+						"Kulaba Killa (Alibag)",
+						"https://maps.app.goo.gl/NGo8d7xvoFjo8dkL7",
+						"../images/Kulaba-Fort.jpg",
+						"11Km",
+					],
+					[
 						"Chamunda Devi Mandir (Gaodevi)",
 						"https://maps.app.goo.gl/NxEYneHM1fxYaJ64A",
 						"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_rbyexw4Atra8vdMJGYsBPMJwiBKzsPit4w&s",

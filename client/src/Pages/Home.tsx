@@ -1,6 +1,7 @@
 import React from "react";
-import { Carousel } from "flowbite-react";
+import { Button, Carousel } from "flowbite-react";
 import Menu from "../components/Menu";
+import { Link } from "react-router-dom";
 
 const Home = () => {
 	return (
@@ -105,6 +106,16 @@ const Home = () => {
 						]}
 					/>
 				</div>
+			</div>
+			<div className="flex justify-center py-10 text-2xl">
+				<Button className="text-2xl font-extrabold">
+					<Link
+						to="https://www.google.com/maps/place/Jay+Prabha+Holiday+Home+Hotel/@18.7287779,72.8665638,17z/data=!4m8!3m7!1s0x3be87845e2dbca71:0xdf7454cdf08fcb3!8m2!3d18.7287728!4d72.8691387!9m1!1b1!16s%2Fg%2F11g8cs0gqn?entry=ttu"
+						target="_blank"
+					>
+						See Reviews
+					</Link>
+				</Button>
 			</div>
 			{/* <Carousel slideInterval={3000}>
 				<Review />

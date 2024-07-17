@@ -204,7 +204,7 @@ export const fadeUp = (el, delay = 0) => {
 export const mobileLanding = () => {
 	window.innerWidth < 763 &&
 		tl.from(".landing__main2", {
-			duration: 1,
+			duration: 0.2,
 			delay: 0,
 			opacity: 0,
 			y: 80,
