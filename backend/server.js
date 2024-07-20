@@ -31,7 +31,7 @@ app.use("/api/photos", photosRouter);
 
 app.get("/", (req, res) => res.send("server is active!"));
 
-//for hosting
+// for hosting
 const __dirname = path.resolve();
 app.use(express.static(path.join(__dirname, "/client/dist")));
 

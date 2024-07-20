@@ -1,6 +1,6 @@
 {
 	"scripts": {
-		"build": "cd server && npm install && cd ../client && npm install --legacy-peer-deps && npm run build --legacy-peer-deps",
+		"build": "cd backend && npm install && cd ../client && npm install --legacy-peer-deps && npm run build --force",
 		"start": "node server/server.js"
 	},
 	"dependencies": {
