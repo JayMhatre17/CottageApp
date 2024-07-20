@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import path from "path";
 import userRouter from "./Routes/UserRoutes.js";
 import bookingRouter from "./Routes/BookingRoutes.js";
 import photosRouter from "./Routes/PhotosRoutes.js";
