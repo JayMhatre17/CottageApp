@@ -30,7 +30,7 @@ app.use("/api/booking", bookingRouter);
 app.use("/api/photos", photosRouter);
 // app.use("/api/reviews", reviewRouter);
 
-app.get("/", (req, res) => res.send("server is active!"));
+// app.get("/", (req, res) => res.send("server is active!"));
 
 // for hosting
 const __dirname = path.resolve();
