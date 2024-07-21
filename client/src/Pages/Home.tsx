@@ -9,7 +9,7 @@ const Home = () => {
 			className="font-bold w-full sm:bg-cover bg-blend-darken contrast-100"
 			style={{ backgroundImage: `url("../images/beah.jpg")` }}
 		>
-			<div className="h-48 sm:h-96 top-0 sm:top-6 brightness-150 xl:h-80 2xl:h-96">
+			<div className="h-56 sm:h-96 top-0 sm:top-6 brightness-150 xl:h-80 2xl:h-96">
 				<Carousel slideInterval={5000}>
 					<img src="../images/home/Carousel/carouselImage1.jpg" alt="Banner" />
 					<img src="../images/home/Carousel/carouselImage2.jpg" alt="Banner" />
