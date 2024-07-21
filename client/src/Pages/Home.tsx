@@ -11,9 +11,9 @@ const Home = () => {
 		>
 			<div className="h-48 sm:h-96 top-0 sm:top-6 brightness-150 xl:h-80 2xl:h-96">
 				<Carousel slideInterval={5000}>
-					<img src="../images/home/carousel/carouselImage1.jpg" alt="Banner" />
-					<img src="../images/home/carousel/carouselImage2.jpg" alt="Banner" />
-					<img src="../images/home/carousel/carouselImage3.jpg" alt="Banner" />
+					<img src="../images/home/Carousel/carouselImage1.jpg" alt="Banner" />
+					<img src="../images/home/Carousel/carouselImage2.jpg" alt="Banner" />
+					<img src="../images/home/Carousel/carouselImage3.jpg" alt="Banner" />
 				</Carousel>
 			</div>
 			<div className="flex flex-col w-full h-full mb-14 sm:mb-4 sm:flex-row">
