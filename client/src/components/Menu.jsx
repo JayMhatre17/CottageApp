@@ -17,9 +17,9 @@ const MEnu = (props) => {
 						<h1 className="flex justify-center font-bold capitalize">
 							{props.name}
 						</h1>
-						<div>
+						{/* <div>
 							<span className="block text-center">{props.price}&#8377;</span>
-						</div>
+						</div> */}
 						<div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-slate-800 bg-opacity-50 rounded-lg">
 							<div className="text-white text-center">
 								<h3>{props.name}</h3>

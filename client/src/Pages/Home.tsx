@@ -9,11 +9,11 @@ const Home = () => {
 			className="font-bold w-full sm:bg-cover bg-blend-darken contrast-100"
 			style={{ backgroundImage: `url("../images/beah.jpg")` }}
 		>
-			<div className="h-48 sm:h-96 top-0 sm:top-6 brightness-150 xl:h-80 2xl:h-96">
+			<div className="h-48 sm:h-96 brightness-100 xl:h-80 2xl:h-96">
 				<Carousel slideInterval={5000}>
-					<img src="../images/home/Carousel/carouselImage1.jpg" alt="Banner" />
+					<img src="../images/home/Carousel/front.jpg" alt="Banner" />
 					<img src="../images/home/Carousel/carouselImage2.jpg" alt="Banner" />
-					<img src="../images/home/Carousel/carouselImage3.jpg" alt="Banner" />
+					<img src="../images/home/Carousel/tables.jpg" alt="Banner" />
 				</Carousel>
 			</div>
 			<div className="flex flex-col w-full h-full mb-14 sm:mb-4 sm:flex-row">
@@ -30,15 +30,15 @@ const Home = () => {
 							"Welcome to JayPrabha <br></br>Holiday Home"
 						</p>
 						<div className="text-justify mt-5 pt-5 h-48 w-70 font-robo">
-							<li>Enjoy delicious food, cozy rooms, and modern amenities.</li>{" "}
+							<li>Enjoy delicious food and cozy rooms at our place.</li>{" "}
 							<li>
-								Relax and unwind in our serene surroundings, with activities
-								like Beach sports,seeing forts like Kulaba fort which is near to
-								our location.
+								Unwind and relax in the tranquil surroundings of our Kihim, with
+								activities such as beach sports and visiting forts such as
+								Kulaba Fort, which is situated close to our location.
 							</li>
 							<li>
-								Let us make your stay unforgettable with warm hospitality and
-								beautiful views of Kihim.
+								We strive to make your stay unforgettable with warm hospitality
+								and beautiful views of Kihim.
 							</li>
 						</div>
 					</div>
@@ -117,9 +117,6 @@ const Home = () => {
 					</Link>
 				</Button>
 			</div>
-			{/* <Carousel slideInterval={3000}>
-				<Review />
-			</Carousel> */}
 		</div>
 	);
 };

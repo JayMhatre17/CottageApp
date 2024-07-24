@@ -1,10 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { FaLocationDot } from "react-icons/fa6";
+import { Popover } from "flowbite-react";
+import { IoInformationCircle } from "react-icons/io5";
 const Landmarks = () => {
 	return (
 		<div>
-			<div className="text-3xl px-3 pt-2 m-6 font-bold">Landmarks Near Me</div>
+			<div className="text-xl sm:text-3xl px-3 pt-2 m-6 font-bold text-pretty">
+				Landmarks Near Me
+			</div>
 			<div className="grid grid-cols-1 sm:grid-cols-2 w-full space-x-2 space-y-2 p-2">
 				{[
 					[
@@ -50,7 +54,7 @@ const Landmarks = () => {
 						"12Km",
 					],
 				].map(([title, maps, photo, dist]) => (
-					<div className="relative h-auto w-auto border-solid border-4 rounded-xl border-sky-500">
+					<div className="relative h-auto w-auto border-solid border-4 rounded-xl border-sky-500 shadow-2xl">
 						<Link to={maps} target="_blank">
 							<div className="flex flex-row">
 								<img
@@ -59,15 +63,40 @@ const Landmarks = () => {
 									alt={title}
 								/>
 
-								<div className="text-xl font-bold p-3">{title}</div>
+								<div className="flex flex-col text-xs sm:text-2xl font-bold p-3">
+									{title}
+									<div className="text-xs sm:text-xl animate-[pulse_2s_infinite] ">
+										<div className="flex flex-wrap items-center">
+											<FaLocationDot />
+											{dist}
+										</div>
+									</div>
+								</div>
 							</div>
-							<div className="text-xs absolute right-7 bottom-4 animate-[ping_2s_infinite] ">
+							{/* <div className="text-xs absolute right-7 bottom-4 animate-[ping_2s_infinite] ">
 								<div className="flex flex-wrap items-center">
 									<FaLocationDot />
 									{dist}
 								</div>
-							</div>
+							</div> */}
 						</Link>
+						<Popover
+							content={
+								<div className="w-64 text-sm text-gray-500 dark:text-gray-400">
+									<div className="px-3 py-2">
+										<p>
+											And here's some amazing content. It's very engaging.
+											Right?
+										</p>
+									</div>
+								</div>
+							}
+						>
+							<div className="flex flex-row items-center text-blue-500 underline text-xs sm:text-xl pl-1 pb-1 absolute right-2 sm:right-7 bottom-1 sm:bottom-3">
+								<IoInformationCircle />
+								See More
+							</div>
+						</Popover>
 					</div>
 				))}
 			</div>

@@ -2,19 +2,19 @@ import { Menu } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Slide, ToastContainer } from "react-toastify";
 import { Link, NavLink } from "react-router-dom";
-import { useContext } from "react";
-import { Store } from "../Store";
-import ProfileDropdown from "./ProfileDropdown";
+// import { useContext } from "react";
+// import { Store } from "../Store";
+// import ProfileDropdown from "./ProfileDropdown";
 
 export default function Navbar() {
-	const { state, dispatch: ctxDispatch } = useContext(Store);
+	// const { state, dispatch: ctxDispatch } = useContext(Store);
 
-	const { userInfo } = state;
+	// const { userInfo } = state;
 
-	const signOut = () => {
-		ctxDispatch({ type: "USER_SIGNOUT" });
-		localStorage.removeItem("userInfo");
-	};
+	// const signOut = () => {
+	// 	ctxDispatch({ type: "USER_SIGNOUT" });
+	// 	localStorage.removeItem("userInfo");
+	// };
 
 	return (
 		<>
@@ -77,7 +77,7 @@ export default function Navbar() {
 												</NavLink>
 											</div>
 
-											<div className="nav-item">
+											{/* <div className="nav-item">
 												{userInfo ? (
 													<ProfileDropdown
 														userInfo={userInfo}
@@ -88,8 +88,7 @@ export default function Navbar() {
 														Login
 													</NavLink>
 												)}
-											</div>
-											<div className="nav-item"></div>
+											</div> */}
 										</div>
 									</div>
 								</div>
@@ -131,7 +130,7 @@ export default function Navbar() {
 											Contact Us
 										</NavLink>
 									</Menu.Item>
-									{userInfo ? (
+									{/* {userInfo ? (
 										<div className="flex flex-row items-center justify-center py-2 rounded-lg bg-[#8f8fffb9] text-white">
 											<ProfileDropdown userInfo={userInfo} signOut={signOut} />
 										</div>
@@ -144,7 +143,7 @@ export default function Navbar() {
 												Login
 											</NavLink>
 										</Menu.Item>
-									)}
+									)} */}
 									{/* {userInfo && (
 										<Menu.Item>
 											<span className="block truncate text-sm font-medium">
@@ -155,49 +154,6 @@ export default function Navbar() {
 								</div>
 							</Menu.Items>
 						</div>
-						{/* <Disclosure.Panel className="md:hidden">
-							<div className="flex flex-col items-stretch justify-evenly gap-2 p-3">
-								<NavLink
-									to="/"
-									className="header-nav | flex flex-row items-center justify-center py-2 rounded-lg bg-[#8f8fffb9] hover:bg-[#d7d7ff]"
-								>
-									<Disclosure.Button>Home</Disclosure.Button>
-								</NavLink>
-
-								<NavLink
-									to="/photos"
-									className="header-nav | flex flex-row items-center justify-center py-2 rounded-lg bg-[#8f8fffb9] hover:bg-[#d7d7ff]"
-								>
-									<Disclosure.Button>Photos</Disclosure.Button>
-								</NavLink>
-								<NavLink
-									to="/landmark"
-									className="header-nav | flex flex-row items-center justify-center py-2 rounded-lg bg-[#8f8fffb9] hover:bg-[#d7d7ff]"
-								>
-									<Disclosure.Button>Landmarks</Disclosure.Button>
-								</NavLink>
-
-								<NavLink
-									to="/contactus"
-									className="header-nav | flex flex-row items-center justify-center py-2 rounded-lg bg-[#8f8fffb9] hover:bg-[#d7d7ff]"
-								>
-									<Disclosure.Button>Contact Us</Disclosure.Button>
-								</NavLink>
-
-								{userInfo ? (
-									<div className="flex flex-row items-center justify-center py-2 rounded-lg bg-[#8f8fffb9] text-white">
-										<ProfileDropdown userInfo={userInfo} signOut={signOut} />
-									</div>
-								) : (
-									<NavLink
-										to={"/login"}
-										className="header-nav | flex flex-row items-center justify-center py-2 rounded-lg bg-[#8f8fffb9] hover:bg-[#d7d7ff]"
-									>
-										Login
-									</NavLink>
-								)}
-							</div>
-						</Disclosure.Panel> */}
 					</>
 				)}
 			</Menu>
