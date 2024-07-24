@@ -38,7 +38,7 @@ const Home = () => {
 							</li>
 							<li>
 								We strive to make your stay unforgettable with warm hospitality
-								and beautiful views of Kihim.
+								and beautiful views of Kihim.
 							</li>
 						</div>
 					</div>
