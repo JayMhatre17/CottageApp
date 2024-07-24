@@ -41,7 +41,7 @@ const Home = () => {
 								and beautiful views of Kihim.
 							</li>
 							<li>
-								We both AC and Non AC Rooms Available.
+								We have both AC and Non AC Rooms Available.
 							</li>
 						</div>
 					</div>
