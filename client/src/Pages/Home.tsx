@@ -40,6 +40,9 @@ const Home = () => {
 								We strive to make your stay unforgettable with warm hospitality
 								and beautiful views of Kihim.
 							</li>
+							<li>
+								We both AC and Non AC Rooms Available.
+							</li>
 						</div>
 					</div>
 				</div>
